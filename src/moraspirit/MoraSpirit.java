@@ -5,6 +5,8 @@
  */
 package moraspirit;
 
+import coach.CoachGUI;
+
 /**
  *
  * @author Irfad Hussain
@@ -16,6 +18,9 @@ public class MoraSpirit {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        CoachGUI cgui=new CoachGUI();
+        cgui.setLocationRelativeTo(null);
+        cgui.setVisible(true);
     }
     
 }
