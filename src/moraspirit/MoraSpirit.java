@@ -15,7 +15,9 @@ public class MoraSpirit {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        LoginFrame lf = new LoginFrame();
+        lf.setLocationRelativeTo(null);
+        lf.setVisible(true);
     }
     
 }
