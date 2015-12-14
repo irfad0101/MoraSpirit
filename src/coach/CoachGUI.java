@@ -21,6 +21,9 @@ public class CoachGUI extends javax.swing.JFrame {
         initComponents();
         a=new Achievement();
         ps=new PracticeSchedule();
+        ps.setSessionID(130525);
+        txtSessionId.setText(String.valueOf(ps.getSessionID()));
+        System.out.println("set session id");
     }
 
     /**
@@ -228,12 +231,6 @@ public class CoachGUI extends javax.swing.JFrame {
         lblIndex.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblIndex.setText("Index Number :");
 
-        txtIndex.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIndexActionPerformed(evt);
-            }
-        });
-
         lblSportName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblSportName.setText("Sport Name :");
 
@@ -400,13 +397,10 @@ public class CoachGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtIndexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIndexActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIndexActionPerformed
-
     private void btnSaveShActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveShActionPerformed
         System.out.println("save schedule");
         ps.setSportName(txtSport.getText());
+        System.out.println(txtSport.getText());
         addScheduleDate();
         addScheduleTime();
     }//GEN-LAST:event_btnSaveShActionPerformed
@@ -432,9 +426,13 @@ public class CoachGUI extends javax.swing.JFrame {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         System.out.println("save achievement");
         a.setContest(txtContest.getText());
+        System.out.println(txtContest.getText());
         a.setDescription(txtAreaDescription.getText());
+        System.out.println(txtAreaDescription.getText());
         a.setPlace(txtPlace.getText());
+        System.out.println(txtPlace.getText());
         a.setSportName(txtSportName.getText());
+        System.out.println(txtSportName.getText());
         addAchievementDate();
         
     }//GEN-LAST:event_btnSaveActionPerformed
