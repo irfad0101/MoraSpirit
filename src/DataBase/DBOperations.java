@@ -543,6 +543,31 @@ public class DBOperations {
     
         return equipmentList;
     }
+    
+     public  ArrayList<Equipment> loadEquipments(String sport) throws SQLException, ConnectionTimeOutException{
+        ArrayList<Equipment> equipmentList = new ArrayList<>();
+        
+        setConenction();             
+        pst = con.prepareStatement("SELECT * FROM Equipment WHERE SportName = ?"); 
+        pst.setString(1, sport);
+        use = pst.executeQuery();                
+
+        while(use.next()){                   
+            Equipment equipment = new Equipment();
+            equipment.setItemNo(use.getString(1));
+            equipment.setType(use.getString(2));
+            equipment.setPurchaseDate(use.getDate(3));
+            equipment.setAvailability(use.getBoolean(4));
+            equipment.setPurchasePrice(use.getFloat(5));
+            equipment.setCondition(use.getString(6));
+            equipment.setSportName(use.getString(7));
+            equipmentList.add(equipment);
+        }       
+
+        closeConnection();
+    
+        return equipmentList;
+    }
     /**/
     public  ArrayList<Equipment> loadAvailableEquipments() throws SQLException, ConnectionTimeOutException{
         ArrayList<Equipment> equipmentList = new ArrayList<>();
