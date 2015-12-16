@@ -5,21 +5,28 @@
  */
 package coach;
 
+import DataBase.ConnectionTimeOutException;
+import DataBase.DBOperations;
 import Domain.Achievement;
 import Domain.PracticeSchedule;
 import java.sql.Date;
+import java.sql.SQLException;
+import java.sql.Time;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author sachithra sahan
  */
 public class CoachGUI extends javax.swing.JFrame {
-
+    public DBOperations db;
     private final Achievement a;
     private final PracticeSchedule ps;
     private String sport,strYear,strMonth,strDate;;
     public CoachGUI() {
         initComponents();
+        db=DBOperations.getInstace();
         a=new Achievement();
         ps=new PracticeSchedule();
         ps.setSessionID(130525);
@@ -447,6 +454,11 @@ public class CoachGUI extends javax.swing.JFrame {
         addResource();
         addScheduleDate();
         addScheduleTime();
+        try {
+            db.addPracticeSchedule(ps);
+        } catch (SQLException | ConnectionTimeOutException ex) {
+            Logger.getLogger(CoachGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }//GEN-LAST:event_btnSaveShActionPerformed
     private void addSportName(){
@@ -471,9 +483,9 @@ public class CoachGUI extends javax.swing.JFrame {
         startminute=String.valueOf(startMinute.getSelectedItem());
         endhour=String.valueOf(endHour.getSelectedItem());
         endminute=String.valueOf(endMinute.getSelectedItem());
-        ps.setStartTime(starthour+":"+startminute);
+        ps.setStartTime(Time.valueOf(starthour+":"+startminute+":00"));
         System.out.println(starthour+":"+startminute);
-        ps.setEndTime(endhour+":"+endminute);
+        ps.setEndTime(Time.valueOf(endhour+":"+endminute+":00"));
         System.out.println(endhour+":"+endminute);
     }
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
@@ -487,6 +499,11 @@ public class CoachGUI extends javax.swing.JFrame {
         a.setSportName(String.valueOf(jComboBoxSportName.getSelectedItem()));
         System.out.println(String.valueOf(jComboBoxSportName.getSelectedItem()));
         addAchievementDate();
+        try {
+            db.addAchievement(a);
+        } catch (SQLException | ConnectionTimeOutException ex) {
+            Logger.getLogger(CoachGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }//GEN-LAST:event_btnSaveActionPerformed
     private void addAchievementDate(){
