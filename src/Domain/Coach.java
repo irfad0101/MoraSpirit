@@ -1,7 +1,7 @@
 package Domain;
 
 
-public class Coach {
+public class Coach extends User{
     private String sportName;
 
     /**

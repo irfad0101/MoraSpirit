@@ -6,8 +6,8 @@ public class Equipment {
     private String itemNo;
     private String type;
     private Date purchaseDate;
-    private String status;
-    private String purchaseType;
+    private boolean availability;
+    private float purchasePrice;
     private String condition;
     private String sportName;
 
@@ -52,33 +52,19 @@ public class Equipment {
     public void setPurchaseDate(Date purchaseDate) {
         this.purchaseDate = purchaseDate;
     }
-
-    /**
-     * @return the status
-     */
-    public String getStatus() {
-        return status;
-    }
-
-    /**
-     * @param status the status to set
-     */
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
+   
     /**
      * @return the purchaseType
      */
-    public String getPurchaseType() {
-        return purchaseType;
+    public float getPurchasePrice() {
+        return purchasePrice;
     }
 
     /**
      * @param purchaseType the purchaseType to set
      */
-    public void setPurchaseType(String purchaseType) {
-        this.purchaseType = purchaseType;
+    public void setPurchasePrice(float purchasePrice) {
+        this.purchasePrice = purchasePrice;
     }
 
     /**
@@ -107,6 +93,20 @@ public class Equipment {
      */
     public void setSportName(String sportName) {
         this.sportName = sportName;
+    }
+
+    /**
+     * @return the availability
+     */
+    public boolean isAvailable() {
+        return availability;
+    }
+
+    /**
+     * @param availability the availability to set
+     */
+    public void setAvailability(boolean availability) {
+        this.availability = availability;
     }
     
 }
