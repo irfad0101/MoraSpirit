@@ -9,6 +9,7 @@ import DataBase.ConnectionTimeOutException;
 import DataBase.DBOperations;
 import Domain.Borrow;
 import Domain.Equipment;
+import Domain.Sport;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
@@ -31,12 +32,18 @@ public class Keeper_Interface extends javax.swing.JFrame {
     String eqRecieveID;
     DBOperations DBObj = DBOperations.getInstace();
     
-    List sportsList;
+    List<Sport> sportsList;
     
     public Keeper_Interface() {
         initComponents();
         try {
             sportsList = DBObj.loadSports();
+            sportCombo.removeAllItems();
+            EqpCombo.removeAllItems();
+            for (int h = 0; h < sportsList.size(); h++) {
+                sportCombo.addItem(sportsList.get(h));
+            }
+            sportCombo.setSelectedIndex(0);
         } catch (SQLException ex) {
             Logger.getLogger(Keeper_Interface.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ConnectionTimeOutException ex) {
@@ -429,6 +436,7 @@ public class Keeper_Interface extends javax.swing.JFrame {
         jTabbedPane1.addTab("Reserve", jPanel1);
 
         sportCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        sportCombo.setSelectedIndex(-1);
         sportCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sportComboActionPerformed(evt);
@@ -442,6 +450,7 @@ public class Keeper_Interface extends javax.swing.JFrame {
         jLabel8.setText("Equipment");
 
         EqpCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        EqpCombo.setSelectedIndex(-1);
 
         AvlBtn.setText("Check Availability");
         AvlBtn.addActionListener(new java.awt.event.ActionListener() {
