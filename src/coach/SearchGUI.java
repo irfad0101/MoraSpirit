@@ -5,6 +5,16 @@
  */
 package coach;
 
+import DataBase.ConnectionTimeOutException;
+import DataBase.DBOperations;
+import Domain.Student;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import coach.CoachGUI;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author sachithra sahan
@@ -14,10 +24,39 @@ public class SearchGUI extends javax.swing.JFrame {
     /**
      * Creates new form NameSearchGUI
      */
+    private final DBOperations db;
+    private ArrayList<Student> students;
+    private ArrayList<Student> index;
     public SearchGUI() {
         initComponents();
+        db=DBOperations.getInstace();
+        //students=db.searchStudentByName(stdName);
     }
-
+    public SearchGUI(String str) {
+        initComponents();
+        db=DBOperations.getInstace();
+        try {
+            students=db.searchStudentByName(str);
+            loadStudentsByName(students);
+            loadStudentsByIndex(index);
+        } catch (SQLException | ConnectionTimeOutException ex) {
+            Logger.getLogger(SearchGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    private void loadStudentsByName(ArrayList<Student> stdList){
+        
+        DefaultTableModel model = (DefaultTableModel) tableSearch.getModel();
+        for(Student item:stdList){
+            model.addRow(new Object[]{item.getID(),item.getFirstName()+" "+item.getLastName()});
+        }
+    }
+    private void loadStudentsByIndex(ArrayList<Student> stdList){
+        
+        DefaultTableModel model = (DefaultTableModel) tableSearch.getModel();
+        for(Student item:stdList){
+            model.addRow(new Object[]{item.getID(),item.getFirstName()+" "+item.getLastName()});
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -124,7 +163,8 @@ public class SearchGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectActionPerformed
-        // TODO add your handling code here:
+        tableSearch.getValueAt(tableSearch.getSelectedRow(), tableSearch.getSelectedColumn());
+        
     }//GEN-LAST:event_btnSelectActionPerformed
 
     /**
@@ -158,7 +198,7 @@ public class SearchGUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SearchGUI().setVisible(true);
+                //new SearchGUI().setVisible(true);
             }
         });
     }
