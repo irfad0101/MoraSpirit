@@ -3,6 +3,8 @@ package Domain;
 import java.sql.Date;
 
 public class Achievement {
+    
+    private String studentID;
     private String achievementID;
     private String contest;
     private Date date;
@@ -92,5 +94,19 @@ public class Achievement {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * @return the studentID
+     */
+    public String getStudentID() {
+        return studentID;
+    }
+
+    /**
+     * @param studentID the studentID to set
+     */
+    public void setStudentID(String studentID) {
+        this.studentID = studentID;
     }
 }

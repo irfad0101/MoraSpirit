@@ -1,13 +1,14 @@
 package DataBase;
 
+import Domain.*;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import java.sql.Date;
 
 
 
@@ -21,7 +22,7 @@ public class DBOperations {
     //private String url = "jdbc:mysql://192.168.173.1:3306/SemesterProject";
     private String ip = "192.168.173.1";
     private String port = "3306";
-    private String url = "jdbc:mysql://"+ip+":"+port+"/SemesterProject";
+    private String url = "jdbc:mysql://"+ip+":"+port+"/MoraSpirit";
     //private String url = "jdbc:mysql://localhost:3306/SemesterProject";
     
     //private String user = "root";
@@ -40,7 +41,7 @@ public class DBOperations {
         if(ipAndPort[0]!=null&&ipAndPort[1]!=null){
             this.ip = ipAndPort[0];
             this.port = ipAndPort[1];
-            this.url = "jdbc:mysql://"+ip+":"+port+"/SemesterProject";           
+            this.url = "jdbc:mysql://"+ip+":"+port+"/MoraSpirit";           
         }
     }
     /*
@@ -89,46 +90,41 @@ public class DBOperations {
      * Add Data......................................................................
      */
     
-    /*temp......temp......temp.......
-    public boolean addPatient(Patient patient) throws SQLException, ConnectionTimeOutException{
+    
+    public boolean addStudent(Student student) throws SQLException, ConnectionTimeOutException{
         boolean result = false; 
                   
         setConenction();
-        pst = con.prepareStatement("INSERT INTO PatientFile VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");               
+        pst = con.prepareStatement("INSERT INTO Student VALUES(?,?,?,?,?)");               
 
-        pst.setInt(1,patient.getPID());
-        pst.setString(2,patient.getFirstName());
-        pst.setString(3,patient.getFullName());
-        pst.setString(4,patient.getLastName());            
-        pst.setDate(5,patient.getDateOfBirth());
-        pst.setString(6, patient.getGender());
-        pst.setString(7, patient.getAddress());
-        pst.setString(8, patient.getNIC());
-        pst.setInt(9, patient.getPatientContactNo());
-        pst.setString(10, patient.getNameOfTheGuardian());
-        pst.setInt(11, patient.getGuardianContactNo());
-        pst.setString(12, patient.getBloodGroup());
-        pst.setString(13, patient.getAllergies());
+        pst.setString(1,student.getID());
+        pst.setString(2,student.getFirstName());       
+        pst.setString(3,student.getLastName());       
+        pst.setString(4, student.getFaculty());
+        pst.setString(5, student.getDepartment());
+
+        pst.executeUpdate();
+        
+        pst = con.prepareStatement("INSERT INTO Involve VALUES(?,?)");               
+        pst.setString(1, student.getID());
+        pst.setString(2, student.getSportName());
 
         pst.executeUpdate();
         con.close();
-
         result = true;       
         closeConnection();        
         return result;
     }
-    public boolean addMedicalReport(MedicalReport medicalReport) throws SQLException, ConnectionTimeOutException{
+    public boolean addResource(Resource resource) throws SQLException, ConnectionTimeOutException{
         boolean result = false; 
-        // For insert to medical report there should be a PID which has same PID in medical report
+        
         setConenction();             
-        pst = con.prepareStatement("INSERT INTO MedicalReport VALUES(?,?,?,?,?,?)");               
+        pst = con.prepareStatement("INSERT INTO Resource VALUES(?,?,?,?)");               
 
-        pst.setInt(1,medicalReport.getPID());
-        pst.setDate(2, medicalReport.getDate());
-        pst.setInt(3, medicalReport.getDoctorID());
-        pst.setInt(4,medicalReport.getMedicalReportNum());
-        pst.setString(5, medicalReport.getTestTypes());
-        pst.setString(6, medicalReport.getTreatementDescription());            
+        pst.setString(1,resource.getID());
+        pst.setString(2, resource.getName());
+        pst.setString(3, resource.getLocation());
+        pst.setString(4,resource.getKeeperID());        
 
         pst.executeUpdate();
         con.close();
@@ -137,25 +133,19 @@ public class DBOperations {
         closeConnection();        
         return result;
     }
-    public boolean addLabReport(LabReport labReport) throws SQLException, ConnectionTimeOutException {
+    public boolean addPracticeSchedule(PracticeSchedule practiceSchedule) throws SQLException, ConnectionTimeOutException {
         boolean result = false; 
                     
         setConenction();              
-        pst = con.prepareStatement("INSERT INTO LabReport VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");  
-        int index;
-
-        pst.setInt(1,labReport.getPID());
-        pst.setDate(2, labReport.getDate());
-        pst.setInt(3, labReport.getLabReportNo());
-        pst.setInt(4,labReport.getTestType());
-        pst.setInt(5, labReport.getLabTechID());
-        index = 6;
-        for(String data:labReport.getDataList()){
-            pst.setString(index++, data);
-        }
-        for(int i = 0;(i+index)<22;i++){               
-            pst.setString(index+i, null);
-        }           
+        pst = con.prepareStatement("INSERT INTO PracticeSchedule VALUES(?,?,?,?,?,?)");  
+       
+        pst.setInt(1,practiceSchedule.getSessionID());
+        pst.setString(2, practiceSchedule.getSportName());
+        pst.setString(3, practiceSchedule.getResourceID());
+        pst.setDate(4, practiceSchedule.getDate());
+        pst.setTime(5,practiceSchedule.getStartTime());
+        pst.setTime(6, practiceSchedule.getEndTime());
+              
         pst.executeUpdate();
         con.close();
 
@@ -163,18 +153,168 @@ public class DBOperations {
         closeConnection();
         return result;
     }
-    public boolean addEmployee(Employee employee) throws SQLException, ConnectionTimeOutException{
+    public boolean addAchievement(Achievement achievement) throws SQLException, ConnectionTimeOutException{
         boolean result = false; 
                       
         setConenction();              
-        pst = con.prepareStatement("INSERT INTO Employee VALUES(?,?,?,?,?,MD5(?),null)");  
-        //pst = con.prepareStatement("INSERT INTO Employee VALUES(?,?,?,?,?,?,null)");  
-        pst.setInt(1,employee.getEID());            
-        pst.setString(2, employee.getPosition());
-        pst.setString(3,employee.getName());
-        pst.setString(4, employee.getNIC());
-        pst.setString(5, employee.getUsername());
-        pst.setString(6, employee.getPassword());      
+        //pst = con.prepareStatement("INSERT INTO Achievement VALUES(?,?,?,?,?,MD5(?),null)");  
+        pst = con.prepareStatement("INSERT INTO Employee VALUES(?,?,?,?,?,?)");  
+        pst.setString(1,achievement.getAchievementID());            
+        pst.setString(2, achievement.getContest());
+        pst.setDate(3,achievement.getDate());
+        pst.setString(4, achievement.getPlace());
+        pst.setString(5, achievement.getSportName());
+        pst.setString(6, achievement.getDescription());      
+        
+        pst.executeUpdate();
+        
+        pst = con.prepareStatement("INSERT INTO Achieve VALUES(?,?)");  
+        pst.setString(1,achievement.getStudentID());            
+        pst.setString(2, achievement.getAchievementID());
+        pst.executeUpdate();
+        con.close();
+
+        result = true;
+        closeConnection();
+        return result;
+    }
+    public boolean addEquipment(Equipment equipment) throws SQLException, ConnectionTimeOutException{
+        boolean result = false; 
+                      
+        setConenction();              
+        pst = con.prepareStatement("INSERT INTO Equipment VALUES(?,?,?,?,?,?,?)");     
+
+        pst.setString(1,equipment.getItemNo());            
+        pst.setString(2, equipment.getType());
+        pst.setDate(3,equipment.getPurchaseDate());
+        pst.setBoolean(4, equipment.isAvailable());
+        pst.setFloat(5, equipment.getPurchasePrice());
+        pst.setString(6, equipment.getCondition()); 
+        pst.setString(7, equipment.getSportName());        
+        pst.executeUpdate();
+        con.close();
+
+        result = true;
+        closeConnection();
+        return result;
+    }
+    public boolean addBorrow(Borrow borrow) throws SQLException, ConnectionTimeOutException{
+        boolean result = false; 
+        
+        if(!checkEquipmentAvailability(borrow.getItemNo()))
+            return false;
+                   
+        setConenction();       
+        pst = con.prepareStatement("INSERT INTO Borrow VALUES(?,?,?,?,?)");  
+
+        pst.setString(1,borrow.getItemNo());            
+        pst.setString(2, borrow.getStudentID());
+        pst.setDate(3,borrow.getStartDate());
+        pst.setDate(4, borrow.getEndDate());
+        pst.setBoolean(5, borrow.isReturned());
+
+        pst.executeUpdate();
+        con.close();
+        
+        updateEquipmentAvailability(borrow.getItemNo(), false);
+        
+        result = true;
+        closeConnection();
+        return result;
+    }
+     
+    
+    public boolean addSport(Sport sport) throws SQLException, ConnectionTimeOutException{
+        boolean result = false; 
+                   
+        setConenction();       
+        pst = con.prepareStatement("INSERT INTO Sport VALUES(?)");  
+        pst.setString(1,sport.getSportName());        
+       
+        pst.executeUpdate();
+        
+        for(Utilization uti:sport.getUtilizationList()){
+            pst = con.prepareStatement("INSERT INTO SportsResources VALUES(?,?,?)");  
+            pst.setString(1,uti.getSportName());
+            pst.setString(2,uti.getResourceID());
+            pst.setFloat(3,uti.getUtilization());
+
+            pst.executeUpdate();
+        }
+        con.close();
+
+        result = true;
+        closeConnection();
+        return result;
+    }
+    
+    public boolean addAdmin(Admin admin) throws SQLException, ConnectionTimeOutException{
+        boolean result = false; 
+                   
+        setConenction();       
+        pst = con.prepareStatement("INSERT INTO Admin VALUES(?)");  
+        pst.setString(1,admin.getID());        
+       
+        pst.executeUpdate();
+
+        pst = con.prepareStatement("INSERT INTO Users VALUES(?,?,?,?)");  
+        pst.setString(1,admin.getID()); 
+        pst.setString(2,admin.getName()); 
+        pst.setInt(3,admin.getContactNo()); 
+        pst.setString(4,admin.getPassword());
+        
+        pst.executeUpdate();
+
+        con.close();
+
+        result = true;
+        closeConnection();
+        return result;
+    }
+    
+    public boolean addKeeper(Keeper keeper) throws SQLException, ConnectionTimeOutException{
+        boolean result = false; 
+                   
+        setConenction();       
+        pst = con.prepareStatement("INSERT INTO Keeper VALUES(?,?)");  
+
+        pst.setString(1,keeper.getID()); 
+        pst.setString(2,keeper.getResource());
+       
+        pst.executeUpdate();
+        con.close();
+
+        result = true;
+        closeConnection();
+        return result;
+    }
+    
+    public boolean addCoach(Coach coach) throws SQLException, ConnectionTimeOutException{
+        boolean result = false; 
+                   
+        setConenction();       
+        pst = con.prepareStatement("INSERT INTO Coach VALUES(?,?)");  
+
+        pst.setString(1,coach.getID()); 
+        pst.setString(2,coach.getSportName());
+       
+        pst.executeUpdate();
+        con.close();
+
+        result = true;
+        closeConnection();
+        return result;
+    }
+     
+    public boolean addUser(User user) throws SQLException, ConnectionTimeOutException{
+        boolean result = false; 
+                   
+        setConenction();       
+        pst = con.prepareStatement("INSERT INTO User VALUES(?,?,?)");  
+
+        pst.setString(1,user.getID()); 
+        pst.setString(2,user.getName());
+        pst.setInt(3,user.getContactNo());
         
         pst.executeUpdate();
         con.close();
@@ -183,38 +323,16 @@ public class DBOperations {
         closeConnection();
         return result;
     }
-    public boolean addChronicConditionsReport(ChronicConditionsReport chronicConditionsReport) throws SQLException, ConnectionTimeOutException{
-        boolean result = false; 
-                      
-        setConenction();              
-        pst = con.prepareStatement("INSERT INTO ChronicConditions VALUES(?,?,?,?,?,?,?,?)");     
-
-        pst.setInt(1,chronicConditionsReport.getPID());            
-        pst.setString(2, chronicConditionsReport.getChronicConditionsCol());
-        pst.setBoolean(3,chronicConditionsReport.isHeartDisease());
-        pst.setBoolean(4, chronicConditionsReport.isStroke());
-        pst.setBoolean(5, chronicConditionsReport.isCancer());
-        pst.setBoolean(6, chronicConditionsReport.isDiabetes()); 
-        pst.setBoolean(7, chronicConditionsReport.isObesity()); 
-        pst.setBoolean(8, chronicConditionsReport.isArthritis()); 
-        pst.executeUpdate();
-        con.close();
-
-        result = true;
-        closeConnection();
-        return result;
-    }
-    public boolean addRoom(Room room) throws SQLException, ConnectionTimeOutException{
+    
+     public boolean addEquipmentRequest(String equipmentType,String studentID) throws SQLException, ConnectionTimeOutException{
         boolean result = false; 
                    
         setConenction();       
-        pst = con.prepareStatement("INSERT INTO room VALUES(?,?,?,?)");  
+        pst = con.prepareStatement("INSERT INTO EquipmentRequest VALUES(?,?)");  
 
-        pst.setInt(1,room.getRoomNo());            
-        pst.setBoolean(2, room.isAvailability());
-        pst.setInt(3,room.getPID());
-        pst.setDate(4, room.getDate());
-
+        pst.setString(1,studentID); 
+        pst.setString(2,equipmentType);       
+        
         pst.executeUpdate();
         con.close();
 
@@ -222,33 +340,25 @@ public class DBOperations {
         closeConnection();
         return result;
     }
-   
+    
     /*
      * Update data............................................................................. 
      */
     
-    /*temp......temp......temp.......
-    public boolean updatePatient(Patient patient) throws SQLException, ConnectionTimeOutException{
+     
+    public boolean updateResource(Resource resource) throws SQLException, ConnectionTimeOutException{
         boolean result = false; 
 
         setConenction();             
-        pst = con.prepareStatement("UPDATE PatientFile SET FirstName = ?,FullName = ?,LastName = ?,DateOfBirth = ?,Gender = ?,"
-                + "Address = ?,NIC = ?,PatientContactNo = ?,NameOfTheGuardian = ?,GuardianContactNo = ?,BloodGroup = ?,Allergies = ?"
-                + " WHERE PID = ?");               
+        pst = con.prepareStatement("UPDATE Resource SET ID = ?, Name = ?, Location = ?,"
+                + "KeeperID = ? WHERE ID = ?");               
 
-        pst.setInt(13,patient.getPID());
-        pst.setString(1,patient.getFirstName());
-        pst.setString(2,patient.getFullName());
-        pst.setString(3,patient.getLastName());            
-        pst.setDate(4,patient.getDateOfBirth());
-        pst.setString(5, patient.getGender());
-        pst.setString(6, patient.getAddress());
-        pst.setString(7, patient.getNIC());
-        pst.setInt(8, patient.getPatientContactNo());
-        pst.setString(9, patient.getNameOfTheGuardian());
-        pst.setInt(10, patient.getGuardianContactNo());
-        pst.setString(11, patient.getBloodGroup());
-        pst.setString(12, patient.getAllergies());
+        pst.setString(1,resource.getID());
+        pst.setString(2, resource.getName());
+        pst.setString(3, resource.getLocation());
+        pst.setString(4,resource.getKeeperID());
+        
+        pst.setString(5,resource.getID());
 
         pst.executeUpdate();
         con.close();
@@ -258,17 +368,20 @@ public class DBOperations {
         return result;
     }
     
-    public boolean updateMedicalReport(MedicalReport medicalReport) throws SQLException, ConnectionTimeOutException{
+    public boolean updateEquipment(Equipment equipment) throws SQLException, ConnectionTimeOutException{
         boolean result = false; 
         setConenction();              
-        pst = con.prepareStatement("Update MedicalReport SET PID = ?,Date = ?,DoctorID = ?,TestTypes = ?, TreatementDescription = ? WHERE MedicalReportNum = ?");               
+        pst = con.prepareStatement("UPDATE Equipment SET ItemNo = ?,Type = ?,PurchaseDate = ?,"
+                + "Status = ?, PurchasePrice = ?, Condition = ?, SportName = ? WHERE ItemNo = ?");               
 
-        pst.setInt(1,medicalReport.getPID());
-        pst.setDate(2, medicalReport.getDate());
-        pst.setInt(3, medicalReport.getDoctorID());
-        pst.setInt(6,medicalReport.getMedicalReportNum());
-        pst.setString(4, medicalReport.getTestTypes());
-        pst.setString(5, medicalReport.getTreatementDescription());            
+        pst.setString(1,equipment.getItemNo());            
+        pst.setString(2, equipment.getType());
+        pst.setDate(3,equipment.getPurchaseDate());
+        pst.setBoolean(4, equipment.isAvailable());
+        pst.setFloat(5, equipment.getPurchasePrice());
+        pst.setString(6, equipment.getCondition()); 
+        pst.setString(7, equipment.getSportName()); 
+        pst.setString(8, equipment.getItemNo()); 
 
         pst.executeUpdate();
         con.close();
@@ -279,151 +392,36 @@ public class DBOperations {
         return result;
     }
     
-    public boolean updateLabReport(LabReport labReport) throws SQLException, ConnectionTimeOutException{
+    public boolean updateEquipmentAvailability(String itemNo,boolean availability) throws SQLException, ConnectionTimeOutException{
         boolean result = false; 
-
-        setConenction();              
-        pst = con.prepareStatement("UPDATE LabReport SET PID = ?,Date = ?,TestType = ?,LabTechID = ?,"
-                + "Data1 = ?,Data2 = ?,Data3 = ?,Data4 = ?,Data5 = ?,Data6 = ?,Data7 = ?,Data8 = ?,Data9 = ?,Data10 = ?,"
-                + "Data11 = ?,Data12 = ?,Data13 = ?,Data14 = ?,Data15 = ?,Data16 = ? WHERE LabReportNo = ?");  
-        int index;
-
-        pst.setInt(1,labReport.getPID());
-        pst.setDate(2, labReport.getDate());
-        pst.setInt(21, labReport.getLabReportNo());
-        pst.setInt(3,labReport.getTestType());
-        pst.setInt(4, labReport.getLabTechID());
-        index = 5;       
-        for(String data:labReport.getDataList()){
-            pst.setString(index++, data);
-        }
-        for(int i = 0;(i+index)<21;i++){               
-            pst.setString(index+i, null);
-        }           
-        pst.executeUpdate();
-        con.close();
-
-        result = true;
-        closeConnection();
-        return result;
-    }
-    
-    public boolean updateEmployee(Employee employee) throws SQLException, ConnectionTimeOutException{
-        boolean result = false; 
-
+        
         setConenction();             
-        pst = con.prepareStatement("UPDATE Employee SET EID = ?,Name = ?,NIC = ?");              
+        pst = con.prepareStatement("UPDATE Equipment SET Availability = ? WHERE ItemNo = ?");               
 
-        pst.setInt(1,employee.getEID());          
-        pst.setString(3,employee.getName());
-        pst.setString(4, employee.getNIC());
-
+        pst.setBoolean(1,availability);
+        pst.setString(2, itemNo);
+      
         pst.executeUpdate();
         con.close();
 
-        result = true;
-        closeConnection();
-        return result;
-    }
-    public boolean updateEmployeeUserNamePassWord(Employee employee) throws SQLException, ConnectionTimeOutException{
-        boolean result = false; 
-            
-        setConenction();              
-        pst = con.prepareStatement("UPDATE Employee SET UserName = ?,Password = MD5(?) WHERE EID = ?"); 
-        //pst = con.prepareStatement("UPDATE Employee SET UserName = ?,Password = ? WHERE EID = ?");              
-
-        pst.setString(1,employee.getUsername());          
-        pst.setString(2,employee.getPassword());
-        pst.setInt(3,employee.getEID());
-
-        pst.executeUpdate();
-        con.close();
-
-        result = true;
-        closeConnection();
-        return result;
-    }   
-    public boolean updateManager(Manager manager) throws SQLException, ConnectionTimeOutException{
-        boolean result = false; 
-                    
-        setConenction();           
-        pst = con.prepareStatement("UPDATE Employee SET Name = ?, NIC = ?,UserName = ?,Password = MD5(?) WHERE EID = 2");
-        //pst = con.prepareStatement("UPDATE Employee SET Name = ?, NIC = ?,UserName = ?,Password = ? WHERE EID = 1");              
-
-        pst.setString(1,manager.getName());
-        pst.setString(2,manager.getNIC());
-        pst.setString(3,manager.getUsername());          
-        pst.setString(4,manager.getPassword());            
-        pst.executeUpdate();
-        con.close();
-
-        result = true;
-        closeConnection();
-        return result;
-    }   
-    public boolean setDoctorAvailability(int EID,boolean availability) throws SQLException, ConnectionTimeOutException{
-        boolean result = false;                    
-        setConenction();               
-        pst = con.prepareStatement("UPDATE Employee SET Availability = ? WHERE EID = ? ");  
-
-        pst.setBoolean(1,availability);            
-        pst.setInt(2,EID);                
-        pst.executeUpdate();
-        con.close();
-
-        result = true;
-        closeConnection();
-        return result;
-    }
-    public boolean setRoomAvailability(int roomNo,boolean availability) throws SQLException, ConnectionTimeOutException{
-        boolean result = false; 
-                      
-        setConenction();                  
-        pst = con.prepareStatement("UPDATE room SET Availability = ? WHERE roomNo = ? ");  
-
-        pst.setBoolean(1,availability);            
-        pst.setInt(2,roomNo);                
-        pst.executeUpdate();
-        con.close();
-
-        result = true;
-        closeConnection();
-        return result;
-    }
-    public boolean updateRoom(Room room) throws SQLException, ConnectionTimeOutException{
-        boolean result = false; 
-                   
-        setConenction();              
-        //pst = con.prepareStatement("INSERT INTO Employee VALUES(?,?,?,?,?,MD5(?))");  
-        pst = con.prepareStatement("UPDATE room SET PID = ?, Date = ?,Availability = ? WHERE RoomNo = ?");  
-
-        pst.setInt(1,room.getPID());
-        pst.setDate(2, room.getDate());
-        pst.setBoolean(3, room.isAvailability());
-        pst.setInt(4,room.getRoomNo());    
-        
-
-        pst.executeUpdate();
-        
         result = true;
         closeConnection();
         return result;
     }
     
-    public boolean updateChronicConditionsReport(ChronicConditionsReport chronicConditionsReport) throws SQLException, ConnectionTimeOutException{
+    
+    public boolean updateUtilization(Utilization utilization) throws SQLException, ConnectionTimeOutException{
         boolean result = false; 
-                      
+
         setConenction();              
-        pst = con.prepareStatement("UPDATE ChronicConditions SET ChronicConditionscol = ?, HeartDisease = ?, Stroke = ?, Cancer = ?, Diabetes = ?, Obesity = ?, Arthritis = ? WHERE PID = ?");     
-         
-        pst.setString(1, chronicConditionsReport.getChronicConditionsCol());
-        pst.setBoolean(2,chronicConditionsReport.isHeartDisease());
-        pst.setBoolean(3, chronicConditionsReport.isStroke());
-        pst.setBoolean(4, chronicConditionsReport.isCancer());
-        pst.setBoolean(5, chronicConditionsReport.isDiabetes()); 
-        pst.setBoolean(6, chronicConditionsReport.isObesity()); 
-        pst.setBoolean(7, chronicConditionsReport.isArthritis()); 
-        pst.setInt(8,chronicConditionsReport.getPID());   
+        pst = con.prepareStatement("UPDATE SportsResources SET PID = ?,SportName = ?,"
+                + "ResourcesID = ?,Utilization = ? WHERE SportName = ? AND ResourcesID = ?");  
+        
+        pst.setString(1,utilization.getSportName());
+        pst.setString(2,utilization.getResourceID());
+        pst.setFloat(3,utilization.getUtilization());  
+        pst.setString(4,utilization.getSportName());
+        pst.setString(5,utilization.getResourceID());
         pst.executeUpdate();
         con.close();
 
@@ -431,388 +429,203 @@ public class DBOperations {
         closeConnection();
         return result;
     }
-   
+    
+    
     
     /*
      * Load Data.................................................
      */
     
-    /*temp......temp......temp.......
-    public  ArrayList<Patient> loadPatients() throws SQLException, ConnectionTimeOutException{
-        ArrayList<Patient> patientList = new ArrayList<>();
+    
+    public  ArrayList<Resource> loadResource() throws SQLException, ConnectionTimeOutException{
+        ArrayList<Resource> resourceList = new ArrayList<>();
         
         setConenction();             
-        pst = con.prepareStatement("SELECT * FROM PatientFile");              
+        pst = con.prepareStatement("SELECT * FROM Resource");              
         use = pst.executeQuery();                
 
         while(use.next()){                   
-            Patient patient = new Patient();
-
-            patient.setPID(use.getInt(1));
-            patient.setFirstName(use.getString(2));
-            patient.setFullName(use.getString(3));
-            patient.setLastName(use.getString(4));
-            patient.setDateOfBirth(use.getDate(5));
-            patient.setGender(use.getString(6));
-            patient.setAddress(use.getString(7));
-            patient.setNIC(use.getString(8));
-            patient.setPatientContactNo(use.getInt(9));
-            patient.setNameOfTheGuardian(use.getString(10));
-            patient.setGuardianContactNo(use.getInt(11));
-            patient.setBloodGroup(use.getString(12));
-            patient.setAllergies(use.getString(13));              
-            patientList.add(patient);
+            Resource resource = new Resource();
+            resource.setID(use.getString(1));
+            resource.setName(use.getString(2));
+            resource.setLocation(use.getString(3));
+            resource.setKeeperID(use.getString(4));            
+            resourceList.add(resource);
         }       
 
         closeConnection();
     
-        return patientList;
+        return resourceList;
     }
    
-    public Patient getPatient(int PID) throws SQLException, ConnectionTimeOutException{
-        Patient patient = null;
-       
-        setConenction();          
-        pst = con.prepareStatement("SELECT * FROM PatientFile WHERE PID = ?");
-        pst.setInt(1,PID);
+      
+    public  ArrayList<PracticeSchedule> loadPracticeSchedule() throws SQLException, ConnectionTimeOutException{
+        ArrayList<PracticeSchedule> practiceScheduleList = new ArrayList<>();
+        
+        setConenction();             
+        pst = con.prepareStatement("SELECT * FROM PracticeSchedule");              
         use = pst.executeQuery();                
 
-        if(use.next()){                   
-            patient = new Patient();
-
-            patient.setPID(use.getInt(1));
-            patient.setFirstName(use.getString(2));
-            patient.setFullName(use.getString(3));
-            patient.setLastName(use.getString(4));
-            patient.setDateOfBirth(use.getDate(5));
-            patient.setGender(use.getString(6));
-            patient.setAddress(use.getString(7));
-            patient.setNIC(use.getString(8));
-            patient.setPatientContactNo(use.getInt(9));
-            patient.setNameOfTheGuardian(use.getString(10));
-            patient.setGuardianContactNo(use.getInt(11));
-            patient.setBloodGroup(use.getString(12));
-            patient.setAllergies(use.getString(13));              
-
+        while(use.next()){                   
+            PracticeSchedule practiceSchedule = new PracticeSchedule();
+            practiceSchedule.setSessionID(use.getInt(1));
+            practiceSchedule.setSportName(use.getString(2));
+            practiceSchedule.setDate(use.getDate(3));
+            practiceSchedule.setStartTime(use.getTime(4));
+            practiceSchedule.setEndTime(use.getTime(5));
+            practiceScheduleList.add(practiceSchedule);
         }       
 
         closeConnection();
-       
-        return patient;
+    
+        return practiceScheduleList;
     }
     
-    public ChronicConditionsReport getChronicCondotionReport(int PID) throws SQLException, ConnectionTimeOutException{
-        ChronicConditionsReport ChronicCondition = null;
-       
-        setConenction();          
-        pst = con.prepareStatement("SELECT * FROM ChronicConditions WHERE PID = ?");
-        pst.setInt(1,PID);
+    public  ArrayList<Equipment> loadEquipments() throws SQLException, ConnectionTimeOutException{
+        ArrayList<Equipment> equipmentList = new ArrayList<>();
+        
+        setConenction();             
+        pst = con.prepareStatement("SELECT * FROM Equipment");              
         use = pst.executeQuery();                
 
-        if(use.next()){                   
-            ChronicCondition = new ChronicConditionsReport();
-            ChronicCondition.setPID(use.getInt(1));
-            ChronicCondition.setChronicConditionsCol(use.getString(2));
-            ChronicCondition.setHeartDisease(use.getBoolean(3));
-            ChronicCondition.setStroke(use.getBoolean(4));
-            ChronicCondition.setCancer(use.getBoolean(5));
-            ChronicCondition.setDiabetes(use.getBoolean(6));
-            ChronicCondition.setObesity(use.getBoolean(7));
-            ChronicCondition.setArthritis(use.getBoolean(8));
+        while(use.next()){                   
+            Equipment equipment = new Equipment();
+            equipment.setItemNo(use.getString(1));
+            equipment.setType(use.getString(2));
+            equipment.setPurchaseDate(use.getDate(3));
+            equipment.setAvailability(use.getBoolean(4));
+            equipment.setPurchasePrice(use.getFloat(5));
+            equipment.setCondition(use.getString(6));
+            equipment.setSportName(use.getString(7));
+            equipmentList.add(equipment);
         }       
 
         closeConnection();
-       
-        return ChronicCondition;
-    }
     
-    public ArrayList<Doctor> loadDoctors() throws SQLException, ConnectionTimeOutException{
-        ArrayList<Doctor> doctorList = new ArrayList<>();
+        return equipmentList;
+    }
+    /**/
+    public  ArrayList<Equipment> loadAvailableEquipments() throws SQLException, ConnectionTimeOutException{
+        ArrayList<Equipment> equipmentList = new ArrayList<>();
         
-        setConenction();               
-        pst = con.prepareStatement("SELECT * FROM Employee WHERE Position='Doctor'");              
-        use = pst.executeQuery();                
-
-        while(use.next()){                   
-            Doctor doctor = new Doctor();
-
-            doctor.setEID(use.getInt(1));
-            doctor.setName(use.getString(3));
-            doctor.setNIC(use.getString(4));            
-            doctor.setAvailablity(use.getBoolean(7));
-
-            doctorList.add(doctor);
-        }             
-        closeConnection();
-        
-        return doctorList;
-    }
-    
-    public ArrayList<Employee> loadEmplyee() throws SQLException, ConnectionTimeOutException{
-        ArrayList<Employee> employeeList = new ArrayList<>();
-
-        setConenction();        
-        pst = con.prepareStatement("SELECT * FROM Employee WHERE Position <> 'Manager' AND Position <> 'Admin'");   
-        use = pst.executeQuery();
-
-        while(use.next()){                   
-            Employee employee = emfac.getEmployee(use.getString(2));                
-            employee.setEID(use.getInt(1));
-            employee.setName(use.getString(3));
-            employee.setNIC(use.getString(4));            
-            employeeList.add(employee);
-        }             
-        closeConnection();
-        return employeeList;
-    }
-    public Employee getEmplyee(int EID) throws SQLException, ConnectionTimeOutException{
-        Employee employee=null;
-        
-        setConenction();            
-        pst = con.prepareStatement("SELECT * FROM Employee WHERE EID=?");              
-        pst.setInt(1, EID);
-        use = pst.executeQuery();
-
-        while(use.next()){                   
-            employee = emfac.getEmployee(use.getString(2));                
-            employee.setEID(use.getInt(1));
-            employee.setName(use.getString(3));
-            employee.setNIC(use.getString(4));
-                   
-        }             
-        closeConnection();
-        return employee;
-    }
-    public ArrayList<Date> getLabDates(int PID) throws SQLException, ConnectionTimeOutException{
-        ArrayList<Date> dateList = new ArrayList<>();
-        
-        setConenction();              
-        pst = con.prepareStatement("SELECT * FROM LabReport WHERE PID= ?");
-        pst.setInt(1,PID);
-        use = pst.executeQuery();                
-
-        while(use.next()){                   
-            dateList.add(use.getDate(2));
-        }         
-        closeConnection();
-        return dateList;
-    }
-    public ArrayList<Date> getMedicalDates(int PID) throws SQLException, ConnectionTimeOutException{
-        ArrayList<Date> dateList = new ArrayList<>();
-       
-        setConenction();           
-        pst = con.prepareStatement("SELECT * FROM MedicalReport WHERE PID= ?");
-        pst.setInt(1,PID);
-        use = pst.executeQuery();                
-
-        while(use.next()){                   
-            dateList.add(use.getDate(2));
-        }         
-        closeConnection();
-        return dateList;
-    }
-    public ArrayList<MedicalReport> getMedicalReports(int PID,Date date) throws SQLException, ConnectionTimeOutException{
-        ArrayList<MedicalReport> medicalReportList = new ArrayList<>();      
         setConenction();             
-        pst = con.prepareStatement("SELECT * FROM MedicalReport WHERE PID= ? AND Date =?");
-        pst.setInt(1,PID);
-        pst.setDate(2, date);
+        pst = con.prepareStatement("SELECT * FROM Equipment WHERE Availability = TRUE");              
         use = pst.executeQuery();                
 
-        while(use.next()){                  
-            MedicalReport medicalReport =  new MedicalReport();
-            medicalReport.setPID(use.getInt(1));
-            medicalReport.setDate(use.getDate(2));
-            medicalReport.setDoctorID(use.getInt(3));
-            medicalReport.setMedicalReportNum(use.getInt(4));
-            medicalReport.setTestTypes(use.getString(5));
-            medicalReport.setTreatementDescription(use.getString(6));     
-            medicalReportList.add(medicalReport);
-        }         
+        while(use.next()){                   
+            Equipment equipment = new Equipment();
+            equipment.setItemNo(use.getString(1));
+            equipment.setType(use.getString(2));
+            equipment.setPurchaseDate(use.getDate(3));
+            equipment.setAvailability(use.getBoolean(4));
+            equipment.setPurchasePrice(use.getFloat(5));
+            equipment.setCondition(use.getString(6));
+            equipment.setSportName(use.getString(7));
+            equipmentList.add(equipment);
+        }       
+
         closeConnection();
+    
+        return equipmentList;
+    }
+    public Equipment getEquipment(String equipmentNo) throws SQLException, ConnectionTimeOutException{
         
-        return medicalReportList;
-    }
-    
-    public MedicalReport getMedicalReport(int medicalReportNum) throws SQLException, ConnectionTimeOutException{
-        MedicalReport medicalReport = null;
-
-        setConenction();
-        pst = con.prepareStatement("SELECT * FROM MedicalReport WHERE MedicalReportNum = ?");
-        pst.setInt(1,medicalReportNum);
-
+        Equipment equipment = null;
+        setConenction();             
+        pst = con.prepareStatement("SELECT * FROM Equipment WHERE ItemNo = ?");
+        pst.setString(1, equipmentNo);
         use = pst.executeQuery();                
 
-        if(use.next()){                  
-            medicalReport =  new MedicalReport();
-            medicalReport.setPID(use.getInt(1));
-            medicalReport.setDate(use.getDate(2));
-            medicalReport.setDoctorID(use.getInt(3));
-            medicalReport.setMedicalReportNum(use.getInt(4));
-            medicalReport.setTestTypes(use.getString(5));
-            medicalReport.setTreatementDescription(use.getString(6));     
-
-        }         
-        closeConnection();
-        return medicalReport;
-    }
-    
-    public ArrayList<LabReport> getLabReports(int PID,Date date) throws SQLException, ConnectionTimeOutException{
-        ArrayList<LabReport> labReportList = new ArrayList<>();       
-        setConenction();             
-        pst = con.prepareStatement("SELECT * FROM LabReport WHERE PID = ? AND Date = ?");
-        pst.setInt(1,PID);
-        pst.setDate(2, date);
-        use = pst.executeQuery();             
-
-        while(use.next()){       
-
-            LabReport labReport =  new LabReport();
-            labReport.setPID(use.getInt(1));
-            labReport.setDate(use.getDate(2));
-            labReport.setLabReportNo(use.getInt(3));
-            labReport.setTestType(use.getInt(4));
-            labReport.setLabTechID(use.getInt(5));          
-
-            int index = 6;
-
-            for(int i = 0;i<16;i++){                
-                String data = use.getString(index++);
-                if(data!=null)
-                    labReport.addDataToTheList(data);
-            }               
-            labReportList.add(labReport);
-        }         
-        closeConnection();
-        return labReportList;
-    }
-    
-    public LabReport getLabReport(int labReportNo) throws SQLException, ConnectionTimeOutException{
-        LabReport labReport = null;        
-        setConenction();             
-        pst = con.prepareStatement("SELECT * FROM LabReport WHERE LabReportNo = ?");
-        pst.setInt(1,labReportNo);
-
-        use = pst.executeQuery();             
-
-        if(use.next()){       
-
-            labReport =  new LabReport();
-            labReport.setPID(use.getInt(1));
-            labReport.setDate(use.getDate(2));
-            labReport.setLabReportNo(use.getInt(3));
-            labReport.setTestType(use.getInt(4));
-            labReport.setLabTechID(use.getInt(5));          
-
-            int index = 6;
-
-            for(int i = 0;i<16;i++){                
-                String data = use.getString(index++);
-                if(data!=null)
-                    labReport.addDataToTheList(data);
-            }                
-
-        }         
-        closeConnection();
-        return labReport;
-    }
-    public LabReport getLastLabReport() throws SQLException, ConnectionTimeOutException{
-        LabReport labReport = null;
-        int labReportNo = getLastLabReportNo();        
-        setConenction();              
-        pst = con.prepareStatement("SELECT * FROM LabReport WHERE LabReportNo = ?");
-
-        pst.setInt(1,labReportNo);            
-        use = pst.executeQuery();      
-        if(use.next()){       
-
-            labReport =  new LabReport();
-            labReport.setPID(use.getInt(1));
-            labReport.setDate(use.getDate(2));
-            labReport.setLabReportNo(use.getInt(3));
-            labReport.setTestType(use.getInt(4));
-            labReport.setLabTechID(use.getInt(5));          
-
-            int index = 6;
-            for(int i = 0;i<16;i++){                
-                String data = use.getString(index++);
-                if(data!=null)
-                    labReport.addDataToTheList(data);
-            }    
+        if(use.next()){                   
+            equipment = new Equipment();
+            equipment.setItemNo(use.getString(1));
+            equipment.setType(use.getString(2));
+            equipment.setPurchaseDate(use.getDate(3));
+            equipment.setAvailability(use.getBoolean(4));
+            equipment.setPurchasePrice(use.getFloat(5));
+            equipment.setCondition(use.getString(6));
+            equipment.setSportName(use.getString(7));
             
-        }    
+        }       
+
         closeConnection();
-        return labReport;
-    }
-    public ArrayList<Room> getAddmitedRooms() throws SQLException, ConnectionTimeOutException{
-        ArrayList<Room> roomList = new ArrayList<>();    
-        setConenction();             
-        pst = con.prepareStatement("SELECT * FROM room WHERE Availability = 0");
+    
+        return equipment;
+    }       
+    
+    public ArrayList<Equipment> getAvailableEquipments(String equipmentType,String sportName) throws SQLException, ConnectionTimeOutException{
         
-        use = pst.executeQuery();             
+        ArrayList<Equipment> equipments = new ArrayList<>();
+        
+        setConenction();             
+        pst = con.prepareStatement("SELECT * FROM Equipment WHERE Type = ? AND "
+                + "SportName = ? AND Availability = ?");
+        pst.setString(1, equipmentType);
+        pst.setString(2, sportName);
+        pst.setBoolean(3, true);
+        use = pst.executeQuery();                
 
-        while(use.next()){ 
-            
-            Room room = new Room();
-            room.setRoomNo(use.getInt(1));
-            room.setAvailability(use.getBoolean(2));            
-            room.setPID(use.getInt(3));
-            room.setDate(use.getDate(4));
-            roomList.add(room);
-        }         
+        while(use.next()){                   
+            Equipment equipment = new Equipment();
+            equipment.setItemNo(use.getString(1));
+            equipment.setType(use.getString(2));
+            equipment.setPurchaseDate(use.getDate(3));
+            equipment.setAvailability(use.getBoolean(4));
+            equipment.setPurchasePrice(use.getFloat(5));
+            equipment.setCondition(use.getString(6));
+            equipment.setSportName(use.getString(7));
+            equipments.add(equipment);
+        }       
+
         closeConnection();
-        return roomList;
-    }
-    public int getLastPID() throws SQLException, ConnectionTimeOutException{
-        int pid = -1;
-        setConenction();            
-        pst = con.prepareStatement("SELECT MAX(PID) FROM PatientFile");
-        use = pst.executeQuery();   
-        if(use.next())
-            pid = use.getInt(1);
-
-        return pid;
-    }
-    public int getPID(String nic) throws SQLException, ConnectionTimeOutException{
-        int pid = -1;
-        setConenction();            
-        pst = con.prepareStatement("SELECT MAX(PID) FROM PatientFile WHERE NIC = ?");
-        pst.setString(1,nic);
-        use = pst.executeQuery();   
-        if(use.next())
-            pid = use.getInt(1);
-
-        return pid;
-    }
-    public int getLastLabReportNo() throws SQLException{
-        int labReportNo = -1;        
-        con = DriverManager.getConnection(url, user, password);               
-        pst = con.prepareStatement("SELECT MAX(LabReportNo) FROM LabReport");
-        use = pst.executeQuery();  
-
-        if(use.next())
-            labReportNo = use.getInt(1);
-        closeConnection();
-        return labReportNo;
-    }
-    public boolean getDoctorAvailability(int EID) throws SQLException, ConnectionTimeOutException{
-        boolean result = false; 
-                 
+    
+        return equipments;
+    }       
+   
+    public ArrayList<TimeSlot> getResourceReservedTime(String resourceID,Date date) throws SQLException, ConnectionTimeOutException{
+        
+        ArrayList<TimeSlot> timeSlots = new ArrayList<>();
+        
         setConenction();                   
-        pst = con.prepareStatement("SELECT * FROM Employee WHERE EID = ? ");  
-        pst.setInt(1, EID);
+        pst = con.prepareStatement("SELECT StartTime,EndTime FROM Booking WHERE Resources_ID = ? "
+                + "AND Date = ? ");  
+        pst.setString(1,resourceID);
+        pst.setDate(2, date);
+      
         use = pst.executeQuery();
-        if(use.next()){                
-            return use.getBoolean(7);
+        while(use.next()){                
+            TimeSlot timeSlot = new TimeSlot();
+            timeSlot.setStartTime(use.getTime(1));
+            timeSlot.setEndTime(use.getTime(2));
+            timeSlots.add(timeSlot);
+            
         }
-
-        result = true;
+        
+        pst = con.prepareStatement("SELECT StartTime,EndTime FROM PracticeSchedule"
+                + " WHERE Resources_ID = ? AND Date = ? ");  
+        pst.setString(1,resourceID);
+        pst.setDate(2, date);
+      
+        use = pst.executeQuery();
+        while(use.next()){                
+            TimeSlot timeSlot = new TimeSlot();
+            timeSlot.setStartTime(use.getTime(1));
+            timeSlot.setEndTime(use.getTime(2));
+            timeSlots.add(timeSlot);
+            
+        }
+        
         closeConnection();
-        return result;
+        return timeSlots;
     }
+    
+   
+    
     /*
      * Search Data...........................................................................
      */
+    
+    
     
     /*temp......temp......temp.......
      public ArrayList<Doctor> searchDoctors(String name) throws SQLException, ConnectionTimeOutException{
@@ -917,6 +730,23 @@ public class DBOperations {
     /*
      * check Data.....................................................................
      */
+    
+     public boolean checkEquipmentAvailability(String equipmentNo) throws SQLException, ConnectionTimeOutException{
+        
+       
+        setConenction();             
+        pst = con.prepareStatement("SELECT Availability FROM Equipment WHERE ItemNo = ?");
+        pst.setString(1, equipmentNo);
+        use = pst.executeQuery();                
+
+        if(use.next()){                   
+            return use.getBoolean(1);
+        }       
+
+        closeConnection();
+        return false;
+    } 
+    
     
     /*temp......temp......temp.......
      public Employee checkEmplyee(String uname,String pword) throws ConnectionTimeOutException{

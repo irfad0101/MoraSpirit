@@ -5,7 +5,6 @@ public class Resource {
     private String name;
     private String location;
     private String keeperID;
-    private String sportName;
 
     /**
      * @return the ID
@@ -62,18 +61,5 @@ public class Resource {
     public void setKeeperID(String keeperID) {
         this.keeperID = keeperID;
     }
-
-    /**
-     * @return the sportName
-     */
-    public String getSportName() {
-        return sportName;
-    }
-
-    /**
-     * @param sportName the sportName to set
-     */
-    public void setSportName(String sportName) {
-        this.sportName = sportName;
-    }
+  
 }

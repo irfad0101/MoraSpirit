@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class Student {
     private String ID;
+    private String sportName;
     private String firstName;
     private String lastName;
     private String faculty;
@@ -86,5 +87,19 @@ public class Student {
      */
     public void setDepartment(String department) {
         this.department = department;
+    }
+
+    /**
+     * @return the sportName
+     */
+    public String getSportName() {
+        return sportName;
+    }
+
+    /**
+     * @param sportName the sportName to set
+     */
+    public void setSportName(String sportName) {
+        this.sportName = sportName;
     }
 }

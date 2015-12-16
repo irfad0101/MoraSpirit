@@ -3,40 +3,54 @@ package Domain;
 import java.sql.Date;
 import java.sql.Time;
 
-public class PracticeSchedule {
-    private int sessionID;
-    private String sportName;
+public class Booking {
     private String resourceID;
+    private String requesterName;
+    private int requesterContactNo;
     private Date date;
     private Time startTime;
     private Time endTime;
 
     /**
-     * @return the sessionID
+     * @return the resourceID
      */
-    public int getSessionID() {
-        return sessionID;
+    public String getResourceID() {
+        return resourceID;
     }
 
     /**
-     * @param sessionID the sessionID to set
+     * @param resourceID the resourceID to set
      */
-    public void setSessionID(int sessionID) {
-        this.sessionID = sessionID;
+    public void setResourceID(String resourceID) {
+        this.resourceID = resourceID;
     }
 
     /**
-     * @return the sportName
+     * @return the requesterName
      */
-    public String getSportName() {
-        return sportName;
+    public String getRequesterName() {
+        return requesterName;
     }
 
     /**
-     * @param sportName the sportName to set
+     * @param requesterName the requesterName to set
      */
-    public void setSportName(String sportName) {
-        this.sportName = sportName;
+    public void setRequesterName(String requesterName) {
+        this.requesterName = requesterName;
+    }
+
+    /**
+     * @return the requesterContactNo
+     */
+    public int getRequesterContactNo() {
+        return requesterContactNo;
+    }
+
+    /**
+     * @param requesterContactNo the requesterContactNo to set
+     */
+    public void setRequesterContactNo(int requesterContactNo) {
+        this.requesterContactNo = requesterContactNo;
     }
 
     /**
@@ -80,18 +94,5 @@ public class PracticeSchedule {
     public void setEndTime(Time endTime) {
         this.endTime = endTime;
     }
-
-    /**
-     * @return the resourceID
-     */
-    public String getResourceID() {
-        return resourceID;
-    }
-
-    /**
-     * @param resourceID the resourceID to set
-     */
-    public void setResourceID(String resourceID) {
-        this.resourceID = resourceID;
-    }
+    
 }

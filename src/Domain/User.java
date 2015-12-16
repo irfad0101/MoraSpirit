@@ -4,6 +4,8 @@ public abstract class User {
     private String ID;
     private String name;
     private int contactNo;
+    private String password;
+    //private int char[] passward;
 
     /**
      * @return the ID
@@ -45,5 +47,19 @@ public abstract class User {
      */
     public void setContactNo(int contactNo) {
         this.contactNo = contactNo;
+    }
+
+    /**
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @param password the password to set
+     */
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
