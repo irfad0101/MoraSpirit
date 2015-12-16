@@ -19,6 +19,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -38,10 +39,8 @@ public class Keeper_Interface extends javax.swing.JFrame {
         initComponents();
         try {
             sportsList = DBObj.loadSports();
-            sportCombo.removeAllItems();
-            EqpCombo.removeAllItems();
             for (int h = 0; h < sportsList.size(); h++) {
-                sportCombo.addItem(sportsList.get(h));
+                sportCombo.addItem(sportsList.get(h).getSportName());
             }
             sportCombo.setSelectedIndex(0);
         } catch (SQLException ex) {
@@ -435,8 +434,6 @@ public class Keeper_Interface extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Reserve", jPanel1);
 
-        sportCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        sportCombo.setSelectedIndex(-1);
         sportCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sportComboActionPerformed(evt);
@@ -448,9 +445,6 @@ public class Keeper_Interface extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel8.setText("Equipment");
-
-        EqpCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        EqpCombo.setSelectedIndex(-1);
 
         AvlBtn.setText("Check Availability");
         AvlBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -857,7 +851,7 @@ public class Keeper_Interface extends javax.swing.JFrame {
     private void reserveCheckBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reserveCheckBtnActionPerformed
         // TODO add your handling code here:
 //        String loc = LocationSelect.getSelectedItem().toString();
-//        Date reserveDate = (Date) reserveDateSelect.getDate();  //check for day mismatch
+ //      Date reserveDate = (Date) reserveDateSelect.getDate();  //check for day mismatch
 //        Time frTime = Time.valueOf(toHText+":"+toMText+":00");; 
 //        Time toTime = Time.valueOf(fromHText+":"+fromMText+":00");;
 //      
@@ -878,11 +872,12 @@ public class Keeper_Interface extends javax.swing.JFrame {
 
     private void sportComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sportComboActionPerformed
         // TODO add your handling code here:
-        List eqList;
+        List<Equipment> eqList;
         try {
             eqList = DBObj.loadEquipments(sportCombo.getSelectedItem().toString());
+            EqpCombo.removeAllItems();
             for(int j=0;j<eqList.size();j++){
-                EqpCombo.addItem(eqList.get(j).toString());
+                EqpCombo.addItem(eqList.get(j).getType());
             }
         } catch (SQLException ex) {
             Logger.getLogger(Keeper_Interface.class.getName()).log(Level.SEVERE, null, ex);
@@ -896,7 +891,12 @@ public class Keeper_Interface extends javax.swing.JFrame {
     private void AvlBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AvlBtnActionPerformed
         try {
             // TODO add your handling code here:
-            List eqAval = DBObj.getAvailableEquipments(EqpCombo.getSelectedItem().toString(), sportCombo.getSelectedItem().toString());
+            if (EqpCombo.getSelectedItem()==null){
+                JOptionPane.showMessageDialog(this, "no equipments are avilable");
+                return;
+            }
+            List<Equipment> eqAval = DBObj.getAvailableEquipments(EqpCombo.getSelectedItem().toString(), sportCombo.getSelectedItem().toString());
+            JOptionPane.showMessageDialog(this, Integer.valueOf(eqAval.size())+" equipments are avilable");
             // set a msg box if available and enable panes
         } catch (SQLException ex) {
             Logger.getLogger(Keeper_Interface.class.getName()).log(Level.SEVERE, null, ex);
@@ -910,9 +910,9 @@ public class Keeper_Interface extends javax.swing.JFrame {
             // TODO add your handling code here:
             DBObj.addEquipmentRequest(EqpCombo.getSelectedItem().toString(),stIndexText.getText());
         } catch (SQLException ex) {
-            Logger.getLogger(Keeper_Interface.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         } catch (ConnectionTimeOutException ex) {
-            Logger.getLogger(Keeper_Interface.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_reserveBtnActionPerformed
 
@@ -921,10 +921,17 @@ public class Keeper_Interface extends javax.swing.JFrame {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         Date lendDate = Date.valueOf(LocalDate.MIN);
         Borrow brObj = new Borrow();
-        brObj.setStudentID(stIndexText.getText());
+        brObj.setStudentID(stIndexLendText.getText());
         brObj.setItemNo(lendEqID.getText());
-        brObj.setEndDate((Date) dueDateLend.getDate());
-        brObj.setStartDate(lendDate);
+        brObj.setEndDate(new java.sql.Date(dueDateLend.getDate().getTime()));
+        brObj.setStartDate(new Date(System.currentTimeMillis()));
+        try {
+            DBObj.addBorrow(brObj);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ConnectionTimeOutException ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_lendConfirmBtnActionPerformed
 
     private void eqIDTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eqIDTextActionPerformed
