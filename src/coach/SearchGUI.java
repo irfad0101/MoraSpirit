@@ -38,6 +38,7 @@ public class SearchGUI extends javax.swing.JFrame {
         try {
             students=db.searchStudentByName(str);
             loadStudentsByName(students);
+            index=db.searchStudentByIndex(str);
             loadStudentsByIndex(index);
         } catch (SQLException | ConnectionTimeOutException ex) {
             Logger.getLogger(SearchGUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -97,22 +98,12 @@ public class SearchGUI extends javax.swing.JFrame {
 
         tableSearch.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Index Number", "Student Name"
             }
         ));
-        tableSearch.setColumnSelectionAllowed(true);
         jScrollPane1.setViewportView(tableSearch);
 
         btnSelect.setText("Select");
@@ -165,6 +156,7 @@ public class SearchGUI extends javax.swing.JFrame {
 
     private void btnSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectActionPerformed
         tableSearch.getValueAt(tableSearch.getSelectedRow(), tableSearch.getSelectedColumn());
+        
         
     }//GEN-LAST:event_btnSelectActionPerformed
 

@@ -617,11 +617,14 @@ public class Keeper_Interface extends javax.swing.JFrame {
 
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Details"));
 
-        eqTypeCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        eqTypeCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eqTypeComboActionPerformed(evt);
+            }
+        });
 
         jLabel20.setText("Equipment Type");
 
-        eqSportCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         eqSportCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eqSportComboActionPerformed(evt);
@@ -949,13 +952,14 @@ public class Keeper_Interface extends javax.swing.JFrame {
             Logger.getLogger(Keeper_Interface.class.getName()).log(Level.SEVERE, null, ex);
         }
         for(int k=0; k<sportsList.size();k++){
-            eqSportCombo.addItem(sportsList.get(k).toString());
+            eqSportCombo.addItem(sportsList.get(k).getSportName());
         }
-        List eqpList;
+        List<Equipment> eqpList;
         try {
-            eqpList = DBObj.loadEquipments(sportCombo.getSelectedItem().toString());
-            for(int j=0;j<eqpList.size();j++){
-                eqTypeCombo.addItem(eqpList.get(j).toString());
+            eqpList = DBObj.loadEquipments(eq.getSportName());
+            eqTypeCombo.removeAllItems();
+            for(int j=0;j<eqpList.size();j++){                
+                eqTypeCombo.addItem(eqpList.get(j).getType());
             }
         } catch (SQLException ex) {
             Logger.getLogger(Keeper_Interface.class.getName()).log(Level.SEVERE, null, ex);
@@ -991,25 +995,31 @@ public class Keeper_Interface extends javax.swing.JFrame {
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
         try {
             // TODO add your handling code here:
+            eq = DBObj.getEquipment(updateID);
             if(eqStatusCombo.getSelectedItem().toString().equals("Available")){
                 eq.setAvailability(true);
             }
             if(eqStatusCombo.getSelectedItem().toString().equals("Borrowed")){
                 eq.setAvailability(false);
             }
-            eq = DBObj.getEquipment(updateID);
+            
             eq.setType(eqTypeCombo.getSelectedItem().toString());
             eq.setSportName(eqSportCombo.getSelectedItem().toString());
             eq.setCondition(eqConditionCombo.getSelectedItem().toString());
+            DBObj.updateEquipment(eq);
         } catch (SQLException ex) {
-            Logger.getLogger(Keeper_Interface.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         } catch (ConnectionTimeOutException ex) {
-            Logger.getLogger(Keeper_Interface.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
         
         
         
     }//GEN-LAST:event_updateBtnActionPerformed
+
+    private void eqTypeComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eqTypeComboActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eqTypeComboActionPerformed
 
     /**
      * @param args the command line arguments

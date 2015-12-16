@@ -372,7 +372,7 @@ public class DBOperations {
         boolean result = false; 
         setConenction();              
         pst = con.prepareStatement("UPDATE Equipment SET ItemNo = ?,Type = ?,PurchaseDate = ?,"
-                + "Status = ?, PurchasePrice = ?, Condition = ?, SportName = ? WHERE ItemNo = ?");               
+                + "Availability = ?, PurchasePrice = ?, CurrentCondition = ?, SportName = ? WHERE ItemNo = ?");               
 
         pst.setString(1,equipment.getItemNo());            
         pst.setString(2, equipment.getType());
@@ -382,7 +382,7 @@ public class DBOperations {
         pst.setString(6, equipment.getCondition()); 
         pst.setString(7, equipment.getSportName()); 
         pst.setString(8, equipment.getItemNo()); 
-
+        System.out.println(pst.toString());
         pst.executeUpdate();
         con.close();
 
@@ -695,7 +695,7 @@ public class DBOperations {
 
        setConenction();             
        pst = con.prepareStatement("SELECT * FROM Student WHERE FirstName LIKE '%"+name+"%' OR"
-               + "LastName LIKE '%"+name+"%'");              
+               + " LastName LIKE '%"+name+"%'");              
        use = pst.executeQuery();               
 
        while(use.next()){                   
