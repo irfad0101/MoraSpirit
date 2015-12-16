@@ -5,6 +5,11 @@
  */
 package Admin;
 
+import DataBase.ConnectionTimeOutException;
+import DataBase.DBOperations;
+import Domain.Sport;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import moraspirit.LoginFrame;
 
@@ -17,8 +22,25 @@ public class AdminFrame extends javax.swing.JFrame {
     /**
      * Creates new form AdminFrame
      */
+    
+    private DBOperations dbHanler;
+    private ArrayList<Sport> sportList;
+    
     public AdminFrame() {
         initComponents();
+        this.dbHanler = DBOperations.getInstace();
+        try{
+            this.sportList = dbHanler.loadSports();
+            for(Sport sport:sportList){
+                
+            }
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Cannot load information from database. "+ex.toString(),"Error",JOptionPane.ERROR_MESSAGE);
+        }catch(ConnectionTimeOutException ex){
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error! Cannot connect to database. "+ex.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
