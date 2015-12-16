@@ -5,6 +5,8 @@
  */
 package Admin;
 
+import DataBase.DBOperations;
+
 /**
  *
  * @author Irfad Hussain
@@ -16,10 +18,12 @@ public class AddUserFrame extends javax.swing.JFrame {
      */
     
     private AdminFrame parent;
+    private DBOperations dbHandler;
     
     public AddUserFrame(AdminFrame parent) {
         initComponents();
         this.parent = parent;
+        dbHandler = DBOperations.getInstace();
         setLocationRelativeTo(parent);
         
     }
@@ -71,6 +75,11 @@ public class AddUserFrame extends javax.swing.JFrame {
         cmbxRole.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Coach", "Keeper" }));
 
         btnAddUser.setText("Add User");
+        btnAddUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddUserActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -130,6 +139,10 @@ public class AddUserFrame extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         parent.setEnabled(true);
     }//GEN-LAST:event_formWindowClosing
+
+    private void btnAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddUserActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAddUserActionPerformed
 
     /**
      * @param args the command line arguments

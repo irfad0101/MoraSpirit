@@ -5,6 +5,14 @@
  */
 package Admin;
 
+import DataBase.ConnectionTimeOutException;
+import DataBase.DBOperations;
+import Domain.Sport;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Irfad Hussain
@@ -16,11 +24,14 @@ public class AddSportFrame extends javax.swing.JFrame {
      */
     
     private AdminFrame parent;
+    private DBOperations dbHandler;
     
     public AddSportFrame(AdminFrame parent) {
         initComponents();
         this.parent = parent;
+        this.dbHandler = DBOperations.getInstace();
         setLocationRelativeTo(parent);
+        
     }
 
     /**
@@ -33,14 +44,14 @@ public class AddSportFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtSportName = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAllocation = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         lstResources = new javax.swing.JList();
         btnSelectResource = new javax.swing.JButton();
         btnRemoveResource = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnAddSport = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -78,10 +89,25 @@ public class AddSportFrame extends javax.swing.JFrame {
         jScrollPane2.setViewportView(lstResources);
 
         btnSelectResource.setText("<<");
+        btnSelectResource.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelectResourceActionPerformed(evt);
+            }
+        });
 
         btnRemoveResource.setText(">>");
+        btnRemoveResource.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveResourceActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText("Add Sport");
+        btnAddSport.setText("Add Sport");
+        btnAddSport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddSportActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -94,11 +120,11 @@ public class AddSportFrame extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtSportName, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(230, 230, 230))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAddSport, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -115,7 +141,7 @@ public class AddSportFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSportName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -126,7 +152,7 @@ public class AddSportFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnRemoveResource)))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAddSport, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
@@ -137,20 +163,46 @@ public class AddSportFrame extends javax.swing.JFrame {
         parent.setEnabled(true);
     }//GEN-LAST:event_formWindowClosing
 
+    private void btnAddSportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddSportActionPerformed
+        if (txtSportName.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Sport Name field Cannot be empty", "Field empty", JOptionPane.WARNING_MESSAGE);
+        }
+        try {
+            Sport sport = new Sport();
+            sport.setSportName(txtSportName.getText());
+            dbHandler.addSport(sport);
+            JOptionPane.showMessageDialog(this, "Sport added successfully.", "Operation Success", JOptionPane.INFORMATION_MESSAGE);
+            formWindowClosing(null);
+            this.dispose();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error! Cannot add sport", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (ConnectionTimeOutException ex) {
+            JOptionPane.showMessageDialog(this, "Error! Cannot connect to database", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnAddSportActionPerformed
+
+    private void btnSelectResourceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectResourceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSelectResourceActionPerformed
+
+    private void btnRemoveResourceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveResourceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRemoveResourceActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddSport;
     private javax.swing.JButton btnRemoveResource;
     private javax.swing.JButton btnSelectResource;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JList lstResources;
     private javax.swing.JTable tblAllocation;
+    private javax.swing.JTextField txtSportName;
     // End of variables declaration//GEN-END:variables
 }

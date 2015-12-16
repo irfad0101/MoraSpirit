@@ -236,6 +236,11 @@ public class AdminFrame extends javax.swing.JFrame {
         btnEditEquip.setEnabled(false);
 
         btnAddEquip.setText("Add Equipment");
+        btnAddEquip.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddEquipActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Search By:");
 
@@ -444,6 +449,12 @@ public class AdminFrame extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_formWindowClosing
+
+    private void btnAddEquipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEquipActionPerformed
+        AddEquipmentFrame aef = new AddEquipmentFrame(this);
+        this.setEnabled(false);
+        aef.setVisible(true);
+    }//GEN-LAST:event_btnAddEquipActionPerformed
 
     /**
      * @param args the command line arguments
