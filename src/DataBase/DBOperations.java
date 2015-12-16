@@ -20,7 +20,7 @@ public class DBOperations {
     private static DBOperations instance = null;
    
     //private String url = "jdbc:mysql://192.168.173.1:3306/SemesterProject";
-    private String ip = "192.168.173.1";
+    private String ip = "169.254.27.213";
     private String port = "3306";
     private String url = "jdbc:mysql://"+ip+":"+port+"/MoraSpirit";
     //private String url = "jdbc:mysql://localhost:3306/SemesterProject";
