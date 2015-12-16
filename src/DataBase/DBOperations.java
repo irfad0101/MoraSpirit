@@ -480,7 +480,7 @@ public class DBOperations {
         
         setConenction();             
         pst = con.prepareStatement("SELECT * FROM Resource NATURAL JOIN "
-                + "(SELECT ResourceID as ID FROM SportsResources WHERE SportName = ?) "); 
+                + "(SELECT ResourceID as ID FROM SportsResources WHERE SportName = ?)as A "); 
         pst.setString(1,sportName);
         use = pst.executeQuery();                
 
