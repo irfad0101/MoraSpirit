@@ -149,7 +149,7 @@ public class CoachGUI extends javax.swing.JFrame {
 
         lblResource.setText("Resource :");
 
-        jComboBoxSport.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Select your sport", "Cricket", "Volyball", " " }));
+        jComboBoxSport.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Select your sport", " " }));
         jComboBoxSport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxSportActionPerformed(evt);
@@ -510,18 +510,19 @@ public class CoachGUI extends javax.swing.JFrame {
         System.out.println(strYear+"-"+strMonth+"-"+strDate);
     }
     private void jComboBoxSportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSportActionPerformed
-
+        /*jComboBoxSport.removeAllItems();
+        jComboBoxResource.removeAllItems();*/
         try {
             // TODO add your handling code here:
             ArrayList<Sport> sportList = db.loadSports();//loading sports
             for (Sport item: sportList){
                 jComboBoxSport.addItem(item);//add sports into combobox
             }
-            jComboBoxResource.removeAllItems();
+            
             String str=String.valueOf(jComboBoxSport.getSelectedItem());
             ArrayList<Resource> resourceList=db.loadResource(str);//load resources
             for (Resource item: resourceList){
-                jComboBoxSport.addItem(item);//add sports into combobox
+                jComboBoxResource.addItem(item);//add resources into combobox
             }
         } catch (SQLException | ConnectionTimeOutException ex) {
             Logger.getLogger(CoachGUI.class.getName()).log(Level.SEVERE, null, ex);

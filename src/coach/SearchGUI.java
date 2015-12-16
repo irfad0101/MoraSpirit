@@ -112,6 +112,7 @@ public class SearchGUI extends javax.swing.JFrame {
                 "Index Number", "Student Name"
             }
         ));
+        tableSearch.setColumnSelectionAllowed(true);
         jScrollPane1.setViewportView(tableSearch);
 
         btnSelect.setText("Select");
