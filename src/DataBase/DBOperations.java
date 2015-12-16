@@ -27,8 +27,8 @@ public class DBOperations {
     
     //private String user = "root";
     //private String password = "";
-    private String user = "hosdataadmin";
-    private String password = "coperativehos7456391";
+    private String user = "moraspiritadmin";
+    private String password = "mora1234";
     
     
     
@@ -436,7 +436,24 @@ public class DBOperations {
      * Load Data.................................................
      */
     
+     
+    public  ArrayList<Sport> loadSports() throws SQLException, ConnectionTimeOutException{
+        ArrayList<Sport> resourceList = new ArrayList<>();
+        
+        setConenction();             
+        pst = con.prepareStatement("SELECT * FROM Sport");              
+        use = pst.executeQuery();                
+
+        while(use.next()){                   
+            Sport sport = new Sport();
+            sport.setSportName(use.getString(1));                 
+            resourceList.add(sport);
+        }       
+        closeConnection();
     
+        return resourceList;
+    }
+   
     public  ArrayList<Resource> loadResource() throws SQLException, ConnectionTimeOutException{
         ArrayList<Resource> resourceList = new ArrayList<>();
         
@@ -458,6 +475,28 @@ public class DBOperations {
         return resourceList;
     }
    
+     public  ArrayList<Resource> loadResource(String sportName) throws SQLException, ConnectionTimeOutException{
+        ArrayList<Resource> resourceList = new ArrayList<>();
+        
+        setConenction();             
+        pst = con.prepareStatement("SELECT * FROM Resource NATURAL JOIN "
+                + "(SELECT ResourceID as ID FROM SportsResources WHERE SportName = ?) "); 
+        pst.setString(1,sportName);
+        use = pst.executeQuery();                
+
+        while(use.next()){                   
+            Resource resource = new Resource();
+            resource.setID(use.getString(1));
+            resource.setName(use.getString(2));
+            resource.setLocation(use.getString(3));
+            resource.setKeeperID(use.getString(4));            
+            resourceList.add(resource);
+        }       
+
+        closeConnection();
+    
+        return resourceList;
+    }
       
     public  ArrayList<PracticeSchedule> loadPracticeSchedule() throws SQLException, ConnectionTimeOutException{
         ArrayList<PracticeSchedule> practiceScheduleList = new ArrayList<>();
@@ -623,31 +662,55 @@ public class DBOperations {
     
     /*
      * Search Data...........................................................................
-     */
+     */  
     
-    
-    
-    /*temp......temp......temp.......
-     public ArrayList<Doctor> searchDoctors(String name) throws SQLException, ConnectionTimeOutException{
-        ArrayList<Doctor> doctorList = new ArrayList<>();
+
+    public ArrayList<Student> searchStudentByName(String name) throws SQLException, ConnectionTimeOutException{
+       ArrayList<Student> studentList = new ArrayList<>();
+
+       setConenction();             
+       pst = con.prepareStatement("SELECT * FROM Student WHERE FirstName LIKE '%"+name+"%' OR"
+               + "LastName LIKE '%"+name+"%'");              
+       use = pst.executeQuery();               
+
+       while(use.next()){                   
+           Student student = new Student();
+
+           student.setID(use.getString(1));
+           student.setFirstName(use.getString(2));
+           student.setLastName(use.getString(3));           
+           student.setFaculty(use.getString(4));
+           student.setDepartment(use.getString(5));
+
+           studentList.add(student);
+       }             
+       closeConnection();
+       return studentList;
+    } 
+
+    public ArrayList<Student> searchStudentByIndex(String index) throws SQLException, ConnectionTimeOutException{
+        ArrayList<Student> studentList = new ArrayList<>();
 
         setConenction();             
-        pst = con.prepareStatement("SELECT * FROM Employee WHERE Position='Doctor' AND Name LIKE '%"+name+"%'");              
+        pst = con.prepareStatement("SELECT * FROM Student WHERE ID = ?"); 
+        pst.setString(1,index);
         use = pst.executeQuery();               
                
         while(use.next()){                   
-            Doctor doctor = new Doctor();
+            Student student = new Student();
 
-            doctor.setEID(use.getInt(1));
-            doctor.setName(use.getString(3));
-            doctor.setNIC(use.getString(4));           
-            doctor.setAvailablity(use.getBoolean(7));
-
-            doctorList.add(doctor);
+            student.setID(use.getString(1));
+            student.setFirstName(use.getString(2));
+            student.setLastName(use.getString(3));           
+            student.setFaculty(use.getString(4));
+            student.setDepartment(use.getString(5));
+            
+            studentList.add(student);
         }             
         closeConnection();
-        return doctorList;
+        return studentList;
     } 
+     /*temp......temp......temp.......
     public ArrayList<Patient> searchPatients(String name) throws SQLException, ConnectionTimeOutException{
         ArrayList<Patient> patientList = new ArrayList<>();
         
