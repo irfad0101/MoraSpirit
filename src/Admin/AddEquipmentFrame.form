@@ -77,7 +77,7 @@
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtdate" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cmbxAvailability" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -172,8 +172,6 @@
           <StringArray count="0"/>
         </Property>
       </Properties>
-    </Component>
-    <Component class="org.jdesktop.swingx.JXDatePicker" name="txtdate">
     </Component>
     <Component class="javax.swing.JButton" name="btnAddEquipment">
       <Properties>

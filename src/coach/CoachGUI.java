@@ -9,9 +9,12 @@ import DataBase.ConnectionTimeOutException;
 import DataBase.DBOperations;
 import Domain.Achievement;
 import Domain.PracticeSchedule;
+import Domain.Resource;
+import Domain.Sport;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,6 +24,9 @@ import java.util.logging.Logger;
  */
 public class CoachGUI extends javax.swing.JFrame {
     public DBOperations db;
+
+    
+    String stdName,stdIndex;
     private final Achievement a;
     private final PracticeSchedule ps;
     private String sport,strYear,strMonth,strDate;;
@@ -297,6 +303,11 @@ public class CoachGUI extends javax.swing.JFrame {
         jComboBoxSportName.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cricket", "Volyball" }));
 
         btnSearchIndex.setText("Search Index");
+        btnSearchIndex.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchIndexActionPerformed(evt);
+            }
+        });
 
         btnSearchName.setText("Search Name");
         btnSearchName.addActionListener(new java.awt.event.ActionListener() {
@@ -515,11 +526,24 @@ public class CoachGUI extends javax.swing.JFrame {
         System.out.println(strYear+"-"+strMonth+"-"+strDate);
     }
     private void jComboBoxSportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSportActionPerformed
-        // TODO add your handling code here:
-        jComboBoxResource.removeAllItems();
-        String str=String.valueOf(jComboBoxSport.getSelectedItem());
+
+        try {
+            // TODO add your handling code here:
+            ArrayList<Sport> sportList = db.loadSports();//loading sports
+            for (Sport item: sportList){
+                jComboBoxSport.addItem(item);//add sports into combobox
+            }
+            jComboBoxResource.removeAllItems();
+            String str=String.valueOf(jComboBoxSport.getSelectedItem());
+            ArrayList<Resource> resourceList=db.loadResource(str);//load resources
+            for (Resource item: resourceList){
+                jComboBoxSport.addItem(item);//add sports into combobox
+            }
+        } catch (SQLException | ConnectionTimeOutException ex) {
+            Logger.getLogger(CoachGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        switch (str) {
+        /*switch (str) {
             case "Cricket":
                 jComboBoxResource.addItem("Cricket ground");
                 jComboBoxResource.addItem("indoor stadium");
@@ -530,14 +554,27 @@ public class CoachGUI extends javax.swing.JFrame {
                 break;
             default:
                 break;
-        }
+        }*/
             
     }//GEN-LAST:event_jComboBoxSportActionPerformed
 
     private void btnSearchNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchNameActionPerformed
         // TODO add your handling code here:
-        
+        stdName=txtStudent.getText();
+        SearchGUI search=new SearchGUI(stdName);
+        search.setLocationRelativeTo(null);
+        search.setVisible(true);
+        //search.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     }//GEN-LAST:event_btnSearchNameActionPerformed
+
+    private void btnSearchIndexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchIndexActionPerformed
+        // TODO add your handling code here:
+        stdIndex=txtIndex.getText();
+        SearchGUI search=new SearchGUI(stdIndex);
+        search.setLocationRelativeTo(null);
+        search.setVisible(true);
+        //search.setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }//GEN-LAST:event_btnSearchIndexActionPerformed
     
     /**
      * @param args the command line arguments
@@ -569,7 +606,9 @@ public class CoachGUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CoachGUI().setVisible(true);
+                CoachGUI cgui=new CoachGUI();
+                cgui.setLocationRelativeTo(null);
+                cgui.setVisible(true);
             }
         });
     }

@@ -63,7 +63,6 @@ public class AddEquipmentFrame extends javax.swing.JFrame {
         txtPrice = new javax.swing.JTextField();
         cmbxCondition = new javax.swing.JComboBox();
         cmbxSport = new javax.swing.JComboBox();
-        txtdate = new org.jdesktop.swingx.JXDatePicker();
         btnAddEquipment = new javax.swing.JButton();
         txtItemNo = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -152,7 +151,7 @@ public class AddEquipmentFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(5, 5, 5)
+                .addGap(3, 3, 3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(cmbxAvailability, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
