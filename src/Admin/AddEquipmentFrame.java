@@ -5,8 +5,11 @@
  */
 package Admin;
 
+import DataBase.ConnectionTimeOutException;
 import DataBase.DBOperations;
+import Domain.Equipment;
 import Domain.Sport;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -28,7 +31,15 @@ public class AddEquipmentFrame extends javax.swing.JFrame {
         this.parent = parent;
         this.dbHandler = DBOperations.getInstace();
         setLocationRelativeTo(parent);
-        
+        try {
+            sports = dbHandler.loadSports();
+            for(Sport sport:sports)
+                cmbxSport.addItem(sport.getSportName());
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ConnectionTimeOutException ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -51,7 +62,7 @@ public class AddEquipmentFrame extends javax.swing.JFrame {
         txtPrice = new javax.swing.JTextField();
         cmbxCondition = new javax.swing.JComboBox();
         cmbxSport = new javax.swing.JComboBox();
-        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
+        txtdate = new org.jdesktop.swingx.JXDatePicker();
         btnAddEquipment = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -116,7 +127,7 @@ public class AddEquipmentFrame extends javax.swing.JFrame {
                                 .addComponent(txtPrice))
                             .addComponent(cmbxCondition, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cmbxSport, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(116, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -129,7 +140,7 @@ public class AddEquipmentFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -159,7 +170,12 @@ public class AddEquipmentFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void btnAddEquipmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEquipmentActionPerformed
-        // TODO add your handling code here:
+        Equipment equipment = new Equipment();
+        equipment.setType(txtType.getText());
+        equipment.setPurchaseDate(new java.sql.Date(txtdate.getDate().getTime()));
+        equipment.setPurchasePrice(Float.valueOf(txtPrice.getText()));
+        equipment.setAvailability(cmbxAvailability.getSelectedIndex()==0);
+        equipment.setCondition((String) cmbxCondition.getSelectedItem());
     }//GEN-LAST:event_btnAddEquipmentActionPerformed
 
     /**
@@ -178,8 +194,8 @@ public class AddEquipmentFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
     private javax.swing.JTextField txtPrice;
     private javax.swing.JTextField txtType;
+    private org.jdesktop.swingx.JXDatePicker txtdate;
     // End of variables declaration//GEN-END:variables
 }
