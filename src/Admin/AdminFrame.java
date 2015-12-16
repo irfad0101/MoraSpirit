@@ -65,9 +65,9 @@ public class AdminFrame extends javax.swing.JFrame {
         btnAddResource = new javax.swing.JButton();
         pnlStudents = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblStudents = new javax.swing.JTable();
         txtStudentSearch = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnStudentSearch = new javax.swing.JButton();
         btnAddStudent = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -332,7 +332,7 @@ public class AdminFrame extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Resources", pnlResources);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblStudents.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -343,9 +343,9 @@ public class AdminFrame extends javax.swing.JFrame {
                 "ID", "Name", "Department", "Faculty"
             }
         ));
-        jScrollPane6.setViewportView(jTable1);
+        jScrollPane6.setViewportView(tblStudents);
 
-        jButton1.setText("Search");
+        btnStudentSearch.setText("Search");
 
         btnAddStudent.setText("Add Student");
 
@@ -363,7 +363,7 @@ public class AdminFrame extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlStudentsLayout.createSequentialGroup()
                         .addComponent(txtStudentSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnStudentSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -373,7 +373,7 @@ public class AdminFrame extends javax.swing.JFrame {
                 .addGap(17, 17, 17)
                 .addGroup(pnlStudentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtStudentSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(btnStudentSearch))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -456,9 +456,9 @@ public class AdminFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnSearchEquip;
     private javax.swing.JButton btnSearchSport;
     private javax.swing.JButton btnSearchUser;
+    private javax.swing.JButton btnStudentSearch;
     private javax.swing.JComboBox cmbxEquipSearchBy;
     private javax.swing.JComboBox cmbxUserSearchBy;
-    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -469,7 +469,6 @@ public class AdminFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JList lstAllocation;
     private javax.swing.JList lstSports;
     private javax.swing.JPanel pnlEquipments;
@@ -479,6 +478,7 @@ public class AdminFrame extends javax.swing.JFrame {
     private javax.swing.JPanel pnlUsers;
     private javax.swing.JTable tblEquipments;
     private javax.swing.JTable tblResources;
+    private javax.swing.JTable tblStudents;
     private javax.swing.JTable tblUsers;
     private javax.swing.JTextField txtSearchEquip;
     private javax.swing.JTextField txtSearchResource;
