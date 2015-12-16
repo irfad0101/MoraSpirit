@@ -17,6 +17,7 @@ public class CoachGUI extends javax.swing.JFrame {
 
     private final Achievement a;
     private final PracticeSchedule ps;
+    private String sport;
     public CoachGUI() {
         initComponents();
         a=new Achievement();
@@ -43,7 +44,6 @@ public class CoachGUI extends javax.swing.JFrame {
         lblSession = new javax.swing.JLabel();
         txtSessionId = new javax.swing.JTextField();
         lblSport = new javax.swing.JLabel();
-        txtSport = new javax.swing.JTextField();
         lblDateSh = new javax.swing.JLabel();
         lblStart = new javax.swing.JLabel();
         lblEndTime = new javax.swing.JLabel();
@@ -60,6 +60,9 @@ public class CoachGUI extends javax.swing.JFrame {
         endMinute = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        lblResource = new javax.swing.JLabel();
+        jComboBoxResource = new javax.swing.JComboBox();
+        jComboBoxSport = new javax.swing.JComboBox();
         achievementPanel = new javax.swing.JPanel();
         lblStudentName = new javax.swing.JLabel();
         lblIndex = new javax.swing.JLabel();
@@ -138,23 +141,40 @@ public class CoachGUI extends javax.swing.JFrame {
 
         jLabel2.setText(":");
 
+        lblResource.setText("Resource :");
+
+        jComboBoxSport.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Select your sport", "Cricket", "Volyball", " " }));
+        jComboBoxSport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxSportActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout schedulePanelLayout = new javax.swing.GroupLayout(schedulePanel);
         schedulePanel.setLayout(schedulePanelLayout);
         schedulePanelLayout.setHorizontalGroup(
             schedulePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, schedulePanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSaveSh)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCancelSh)
+                .addGap(22, 22, 22))
             .addGroup(schedulePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(schedulePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(lblEndTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblStart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblDateSh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblSport, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
-                    .addComponent(lblSession, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(schedulePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(schedulePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(lblEndTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblStart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblDateSh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblSport, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
+                        .addComponent(lblSession, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblResource))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(schedulePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtSport, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSessionId, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, schedulePanelLayout.createSequentialGroup()
+                .addGroup(schedulePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBoxResource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSessionId, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(schedulePanelLayout.createSequentialGroup()
                         .addComponent(startHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1)
@@ -162,27 +182,23 @@ public class CoachGUI extends javax.swing.JFrame {
                         .addComponent(startMinute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jComboBoxAm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, schedulePanelLayout.createSequentialGroup()
-                        .addComponent(ShYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ShMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ShDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, schedulePanelLayout.createSequentialGroup()
+                    .addGroup(schedulePanelLayout.createSequentialGroup()
                         .addComponent(endHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(endMinute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBoxPm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(455, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, schedulePanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSaveSh)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCancelSh)
-                .addGap(22, 22, 22))
+                        .addComponent(jComboBoxPm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(schedulePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jComboBoxSport, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, schedulePanelLayout.createSequentialGroup()
+                            .addComponent(ShYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(ShMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(ShDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(510, Short.MAX_VALUE))
         );
         schedulePanelLayout.setVerticalGroup(
             schedulePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,7 +210,11 @@ public class CoachGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(schedulePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSport)
-                    .addComponent(txtSport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxSport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(schedulePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblResource)
+                    .addComponent(jComboBoxResource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(schedulePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDateSh)
@@ -216,7 +236,7 @@ public class CoachGUI extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addComponent(jComboBoxPm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblEndTime))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 251, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 231, Short.MAX_VALUE)
                 .addGroup(schedulePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSaveSh)
                     .addComponent(btnCancelSh))
@@ -339,7 +359,7 @@ public class CoachGUI extends javax.swing.JFrame {
                 .addGroup(achievementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblDescription)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
                 .addGroup(achievementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
                     .addComponent(btnCancel))
@@ -399,11 +419,14 @@ public class CoachGUI extends javax.swing.JFrame {
 
     private void btnSaveShActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveShActionPerformed
         System.out.println("save schedule");
-        ps.setSportName(txtSport.getText());
-        System.out.println(txtSport.getText());
+        addSportName();
         addScheduleDate();
         addScheduleTime();
     }//GEN-LAST:event_btnSaveShActionPerformed
+    private void addSportName(){
+        sport=String.valueOf(jComboBoxSport.getSelectedItem());
+        ps.setSportName(sport);
+    }
     private void addScheduleDate(){
         String strYear,strMonth,strDate;
         strYear=String.valueOf(ShYear.getSelectedItem());
@@ -444,6 +467,26 @@ public class CoachGUI extends javax.swing.JFrame {
         a.setDate(Date.valueOf(strYear+"-"+strMonth+"-"+strDate));
         System.out.println(strYear+"-"+strMonth+"-"+strDate);
     }
+    private void jComboBoxSportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSportActionPerformed
+        // TODO add your handling code here:
+        jComboBoxResource.removeAllItems();
+        String str=String.valueOf(jComboBoxSport.getSelectedItem());
+        
+        switch (str) {
+            case "Cricket":
+                jComboBoxResource.addItem("Cricket ground");
+                jComboBoxResource.addItem("indoor stadium");
+                break;
+            case "Volyball":
+                jComboBoxResource.addItem("New gym");
+                jComboBoxResource.addItem("Outdoor stadium");
+                break;
+            default:
+                break;
+        }
+            
+    }//GEN-LAST:event_jComboBoxSportActionPerformed
+    
     /**
      * @param args the command line arguments
      */
@@ -495,6 +538,8 @@ public class CoachGUI extends javax.swing.JFrame {
     private javax.swing.JComboBox endMinute;
     private javax.swing.JComboBox jComboBoxAm;
     private javax.swing.JComboBox jComboBoxPm;
+    private javax.swing.JComboBox jComboBoxResource;
+    private javax.swing.JComboBox jComboBoxSport;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -507,6 +552,7 @@ public class CoachGUI extends javax.swing.JFrame {
     private javax.swing.JLabel lblEndTime;
     private javax.swing.JLabel lblIndex;
     private javax.swing.JLabel lblPlace;
+    private javax.swing.JLabel lblResource;
     private javax.swing.JLabel lblSession;
     private javax.swing.JLabel lblSport;
     private javax.swing.JLabel lblSportName;
@@ -522,7 +568,6 @@ public class CoachGUI extends javax.swing.JFrame {
     private javax.swing.JTextField txtIndex;
     private javax.swing.JTextField txtPlace;
     private javax.swing.JTextField txtSessionId;
-    private javax.swing.JTextField txtSport;
     private javax.swing.JTextField txtSportName;
     private javax.swing.JTextField txtStudent;
     // End of variables declaration//GEN-END:variables
