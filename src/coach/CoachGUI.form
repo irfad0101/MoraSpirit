@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <NonVisualComponents>
+    <Container class="javax.swing.JPopupMenu" name="jPopupMenu1">
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+        <Property name="useNullLayout" type="boolean" value="true"/>
+      </Layout>
+    </Container>
+  </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="resizable" type="boolean" value="false"/>
@@ -211,7 +219,7 @@
                                   </Group>
                                   <Component id="lblEndTime" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="234" max="32767" attributes="0"/>
+                              <EmptySpace pref="235" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="btnSaveSh" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="btnCancelSh" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -597,7 +605,7 @@
                                       <Group type="103" groupAlignment="1" attributes="0">
                                           <Component id="lblDescription" max="32767" attributes="0"/>
                                           <Component id="lblContest" max="32767" attributes="0"/>
-                                          <Component id="lblStudentName" alignment="0" pref="83" max="32767" attributes="0"/>
+                                          <Component id="lblStudentName" alignment="0" max="32767" attributes="0"/>
                                           <Component id="lblIndex" alignment="0" max="32767" attributes="0"/>
                                           <Component id="lblSportName" alignment="0" max="32767" attributes="0"/>
                                           <Component id="lblDate" alignment="0" max="32767" attributes="0"/>
@@ -605,12 +613,15 @@
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="txtStudent" max="32767" attributes="0"/>
                                           <Component id="txtPlace" alignment="0" max="32767" attributes="0"/>
                                           <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                                           <Group type="102" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="txtIndex" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="txtIndex" min="-2" pref="70" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="btnSearchIndex" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
                                                   <Component id="txtContest" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
                                                   <Group type="102" attributes="0">
                                                       <Component id="Year" min="-2" max="-2" attributes="0"/>
@@ -619,9 +630,14 @@
                                                       <EmptySpace max="-2" attributes="0"/>
                                                       <Component id="Day" min="-2" max="-2" attributes="0"/>
                                                   </Group>
-                                                  <Component id="SportName" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jComboBoxSportName" min="-2" max="-2" attributes="0"/>
                                               </Group>
-                                              <EmptySpace min="0" pref="416" max="32767" attributes="0"/>
+                                              <EmptySpace min="0" pref="424" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="txtStudent" max="32767" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="btnSearchName" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -639,20 +655,26 @@
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="txtStudent" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="txtStudent" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnSearchName" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                                   <Component id="lblStudentName" min="-2" pref="18" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="txtIndex" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="txtIndex" alignment="3" max="32767" attributes="0"/>
+                                      <Component id="btnSearchIndex" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                                   <Component id="lblIndex" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="lblSportName" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="SportName" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jComboBoxSportName" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -844,16 +866,28 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JComboBox" name="SportName">
+                    <Component class="javax.swing.JComboBox" name="jComboBoxSportName">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="3">
-                            <StringItem index="0" value="Select sport name"/>
-                            <StringItem index="1" value="Cricket"/>
-                            <StringItem index="2" value="Volyball"/>
+                          <StringArray count="2">
+                            <StringItem index="0" value="Cricket"/>
+                            <StringItem index="1" value="Volyball"/>
                           </StringArray>
                         </Property>
                       </Properties>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="btnSearchIndex">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Search Index"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="btnSearchName">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Search Name"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSearchNameActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>

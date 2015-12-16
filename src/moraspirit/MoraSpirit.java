@@ -5,6 +5,8 @@
  */
 package moraspirit;
 
+import coach.CoachGUI;
+
 /**
  *
  * @author Irfad Hussain
@@ -15,8 +17,12 @@ public class MoraSpirit {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        LoginFrame lf = new LoginFrame();
-        lf.setVisible(true);
+        /*LoginFrame lf = new LoginFrame();
+        lf.setLocationRelativeTo(null);
+        lf.setVisible(true);*/
+        CoachGUI cgui=new CoachGUI();
+        cgui.setLocationRelativeTo(null);
+        cgui.setVisible(true);
     }
     
 }
