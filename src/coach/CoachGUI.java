@@ -35,9 +35,6 @@ public class CoachGUI extends javax.swing.JFrame {
         db=DBOperations.getInstace();
         a=new Achievement();
         ps=new PracticeSchedule();
-        ps.setSessionID(130525);
-        txtSessionId.setText(String.valueOf(ps.getSessionID()));
-        System.out.println("set session id");
     }
 
     /**
@@ -55,8 +52,6 @@ public class CoachGUI extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         tabbedPane = new javax.swing.JTabbedPane();
         schedulePanel = new javax.swing.JPanel();
-        lblSession = new javax.swing.JLabel();
-        txtSessionId = new javax.swing.JTextField();
         lblSport = new javax.swing.JLabel();
         lblDateSh = new javax.swing.JLabel();
         lblStart = new javax.swing.JLabel();
@@ -108,11 +103,6 @@ public class CoachGUI extends javax.swing.JFrame {
         titleBar.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         titleBar.setText("MoraSpirit Resourse Management System");
         titleBar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-
-        lblSession.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblSession.setText("Session ID :");
-
-        txtSessionId.setEditable(false);
 
         lblSport.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblSport.setText("Sport Name :");
@@ -183,13 +173,11 @@ public class CoachGUI extends javax.swing.JFrame {
                         .addComponent(lblEndTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblStart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblDateSh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblSport, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
-                        .addComponent(lblSession, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(lblSport, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE))
                     .addComponent(lblResource))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(schedulePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jComboBoxResource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSessionId, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(schedulePanelLayout.createSequentialGroup()
                         .addComponent(startHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -219,11 +207,7 @@ public class CoachGUI extends javax.swing.JFrame {
         schedulePanelLayout.setVerticalGroup(
             schedulePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(schedulePanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(schedulePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSession)
-                    .addComponent(txtSessionId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(37, 37, 37)
                 .addGroup(schedulePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSport)
                     .addComponent(jComboBoxSport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -648,7 +632,6 @@ public class CoachGUI extends javax.swing.JFrame {
     private javax.swing.JLabel lblIndex;
     private javax.swing.JLabel lblPlace;
     private javax.swing.JLabel lblResource;
-    private javax.swing.JLabel lblSession;
     private javax.swing.JLabel lblSport;
     private javax.swing.JLabel lblSportName;
     private javax.swing.JLabel lblStart;
@@ -662,7 +645,6 @@ public class CoachGUI extends javax.swing.JFrame {
     private javax.swing.JTextField txtContest;
     private javax.swing.JTextField txtIndex;
     private javax.swing.JTextField txtPlace;
-    private javax.swing.JTextField txtSessionId;
     private javax.swing.JTextField txtStudent;
     // End of variables declaration//GEN-END:variables
 }
