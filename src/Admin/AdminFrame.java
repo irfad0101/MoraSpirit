@@ -5,6 +5,9 @@
  */
 package Admin;
 
+import javax.swing.JOptionPane;
+import moraspirit.LoginFrame;
+
 /**
  *
  * @author Irfad Hussain
@@ -70,7 +73,12 @@ public class AdminFrame extends javax.swing.JFrame {
         btnStudentSearch = new javax.swing.JButton();
         btnAddStudent = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         tblUsers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -92,6 +100,11 @@ public class AdminFrame extends javax.swing.JFrame {
         btnResetPassword.setEnabled(false);
 
         btnAddNewUser.setText("Add New User");
+        btnAddNewUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddNewUserActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Search By:");
 
@@ -106,9 +119,9 @@ public class AdminFrame extends javax.swing.JFrame {
                 .addGroup(pnlUsersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnlUsersLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnAddNewUser, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAddNewUser)
                         .addGap(18, 18, 18)
-                        .addComponent(btnResetPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnResetPassword))
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 755, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlUsersLayout.createSequentialGroup()
                         .addGap(8, 8, 8)
@@ -134,9 +147,9 @@ public class AdminFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlUsersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnAddNewUser, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
-                    .addComponent(btnResetPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(pnlUsersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnResetPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAddNewUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(20, 20, 20))
         );
 
@@ -149,6 +162,11 @@ public class AdminFrame extends javax.swing.JFrame {
         jScrollPane2.setViewportView(lstAllocation);
 
         btnAddSport.setText("Add Sport");
+        btnAddSport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddSportActionPerformed(evt);
+            }
+        });
 
         btnEditAllocation.setText("Edit Allocation");
         btnEditAllocation.setEnabled(false);
@@ -406,6 +424,26 @@ public class AdminFrame extends javax.swing.JFrame {
     private void cmbxEquipSearchByActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbxEquipSearchByActionPerformed
 
     }//GEN-LAST:event_cmbxEquipSearchByActionPerformed
+
+    private void btnAddNewUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddNewUserActionPerformed
+        AddUserFrame adf = new AddUserFrame(this);
+        setEnabled(false);
+        adf.setVisible(true);
+    }//GEN-LAST:event_btnAddNewUserActionPerformed
+
+    private void btnAddSportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddSportActionPerformed
+        AddSportFrame asf = new AddSportFrame(this);
+        setEnabled(false);
+        asf.setVisible(true);
+    }//GEN-LAST:event_btnAddSportActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        int respons = JOptionPane.showConfirmDialog(this, "Are you sure you want to logout?","Confirm Logout",JOptionPane.YES_NO_OPTION);
+        if (respons==JOptionPane.YES_OPTION){
+            new LoginFrame().setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

@@ -16,7 +16,6 @@ public class MoraSpirit {
      */
     public static void main(String[] args) {
         LoginFrame lf = new LoginFrame();
-        lf.setLocationRelativeTo(null);
         lf.setVisible(true);
     }
     
