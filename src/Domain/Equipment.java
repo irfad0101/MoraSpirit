@@ -6,6 +6,8 @@ public class Equipment {
     private String itemNo;
     private String type;
     private Date purchaseDate;
+    private Date borrowedDate;
+    private Date dueDate;
     private boolean availability;
     private float purchasePrice;
     private String condition;
@@ -109,4 +111,23 @@ public class Equipment {
         this.availability = availability;
     }
     
+    public boolean getAvailability() {
+        return availability;
+    }
+    
+     public Date getBorrowedDate() {
+        return borrowedDate;
+    }
+     
+      public void setBurrowedDate(Date BorrowDate) {
+        this.borrowedDate = BorrowDate;
+    }
+            
+      public Date getDueDate() {
+        return dueDate;
+    }
+     
+      public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
+    }
 }
