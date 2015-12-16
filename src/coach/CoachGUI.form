@@ -112,18 +112,28 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="btnSaveSh" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="lblEndTime" max="32767" attributes="0"/>
-                                  <Component id="lblStart" max="32767" attributes="0"/>
-                                  <Component id="lblDateSh" max="32767" attributes="0"/>
-                                  <Component id="lblSport" pref="83" max="32767" attributes="0"/>
-                                  <Component id="lblSession" max="32767" attributes="0"/>
+                              <Component id="btnCancelSh" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="lblEndTime" max="32767" attributes="0"/>
+                                      <Component id="lblStart" max="32767" attributes="0"/>
+                                      <Component id="lblDateSh" max="32767" attributes="0"/>
+                                      <Component id="lblSport" pref="83" max="32767" attributes="0"/>
+                                      <Component id="lblSession" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Component id="lblResource" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="txtSport" alignment="0" min="-2" pref="191" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jComboBoxResource" min="-2" max="-2" attributes="0"/>
                                   <Component id="txtSessionId" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="startHour" min="-2" max="-2" attributes="0"/>
@@ -135,13 +145,6 @@
                                       <Component id="jComboBoxAm" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="ShYear" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="ShMonth" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="ShDate" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
                                       <Component id="endHour" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
@@ -150,15 +153,18 @@
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="jComboBoxPm" min="-2" max="-2" attributes="0"/>
                                   </Group>
+                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="jComboBoxSport" alignment="0" max="32767" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="ShYear" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="ShMonth" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="ShDay" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
                               </Group>
-                              <EmptySpace pref="455" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="btnSaveSh" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnCancelSh" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                              <EmptySpace pref="510" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -173,14 +179,19 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="lblSport" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtSport" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jComboBoxSport" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="lblResource" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jComboBoxResource" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="lblDateSh" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="ShYear" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="ShMonth" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="ShDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="ShDay" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -191,16 +202,16 @@
                                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lblEndTime" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                       <Component id="endHour" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="endMinute" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jComboBoxPm" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
+                                  <Component id="lblEndTime" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="251" max="32767" attributes="0"/>
+                              <EmptySpace pref="234" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="btnSaveSh" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="btnCancelSh" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -228,8 +239,6 @@
                         <Property name="text" type="java.lang.String" value="Sport Name :"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="txtSport">
-                    </Component>
                     <Component class="javax.swing.JLabel" name="lblDateSh">
                       <Properties>
                         <Property name="horizontalAlignment" type="int" value="2"/>
@@ -252,6 +261,9 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Save"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSaveShActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnCancelSh">
                       <Properties>
@@ -313,7 +325,7 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JComboBox" name="ShDate">
+                    <Component class="javax.swing.JComboBox" name="ShDay">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                           <StringArray count="33">
@@ -542,6 +554,28 @@
                         <Property name="text" type="java.lang.String" value=":"/>
                       </Properties>
                     </Component>
+                    <Component class="javax.swing.JLabel" name="lblResource">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Resource :"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JComboBox" name="jComboBoxResource">
+                    </Component>
+                    <Component class="javax.swing.JComboBox" name="jComboBoxSport">
+                      <Properties>
+                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                          <StringArray count="4">
+                            <StringItem index="0" value="Select your sport"/>
+                            <StringItem index="1" value="Cricket"/>
+                            <StringItem index="2" value="Volyball"/>
+                            <StringItem index="3" value=" "/>
+                          </StringArray>
+                        </Property>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxSportActionPerformed"/>
+                      </Events>
+                    </Component>
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JPanel" name="achievementPanel">
@@ -577,15 +611,15 @@
                                           <Group type="102" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Component id="txtIndex" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
-                                                  <Component id="txtSportName" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
                                                   <Component id="txtContest" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
                                                   <Group type="102" attributes="0">
                                                       <Component id="Year" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace max="-2" attributes="0"/>
                                                       <Component id="Month" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="Date" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="Day" min="-2" max="-2" attributes="0"/>
                                                   </Group>
+                                                  <Component id="SportName" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace min="0" pref="416" max="32767" attributes="0"/>
                                           </Group>
@@ -618,15 +652,17 @@
                               <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="lblSportName" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtSportName" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="SportName" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lblDate" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="Year" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                       <Component id="Month" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="Date" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="Day" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="lblDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="Year" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -644,7 +680,7 @@
                                   <Component id="lblDescription" min="-2" max="-2" attributes="0"/>
                                   <Component id="jScrollPane1" min="-2" pref="117" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="77" max="32767" attributes="0"/>
+                              <EmptySpace pref="86" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="btnSave" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="btnCancel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -670,17 +706,12 @@
                     <Component class="javax.swing.JTextField" name="txtStudent">
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtIndex">
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtIndexActionPerformed"/>
-                      </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="lblSportName">
                       <Properties>
                         <Property name="horizontalAlignment" type="int" value="2"/>
                         <Property name="text" type="java.lang.String" value="Sport Name :"/>
                       </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtSportName">
                     </Component>
                     <Component class="javax.swing.JLabel" name="lblDate">
                       <Properties>
@@ -728,6 +759,9 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Save"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSaveActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnCancel">
                       <Properties>
@@ -769,7 +803,7 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JComboBox" name="Date">
+                    <Component class="javax.swing.JComboBox" name="Day">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                           <StringArray count="33">
@@ -806,6 +840,17 @@
                             <StringItem index="30" value="31"/>
                             <StringItem index="31" value=" "/>
                             <StringItem index="32" value=" "/>
+                          </StringArray>
+                        </Property>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JComboBox" name="SportName">
+                      <Properties>
+                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                          <StringArray count="3">
+                            <StringItem index="0" value="Select sport name"/>
+                            <StringItem index="1" value="Cricket"/>
+                            <StringItem index="2" value="Volyball"/>
                           </StringArray>
                         </Property>
                       </Properties>
