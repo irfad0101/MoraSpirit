@@ -173,8 +173,10 @@ public class AddSportFrame extends javax.swing.JFrame {
             formWindowClosing(null);
             this.dispose();
         } catch (SQLException ex) {
+            ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error! Cannot add sport", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (ConnectionTimeOutException ex) {
+            ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error! Cannot connect to database", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnAddSportActionPerformed
