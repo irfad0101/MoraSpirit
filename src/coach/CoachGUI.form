@@ -135,14 +135,12 @@
                                       <Component id="lblStart" max="32767" attributes="0"/>
                                       <Component id="lblDateSh" max="32767" attributes="0"/>
                                       <Component id="lblSport" pref="83" max="32767" attributes="0"/>
-                                      <Component id="lblSession" max="32767" attributes="0"/>
                                   </Group>
                                   <Component id="lblResource" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jComboBoxResource" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtSessionId" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="startHour" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -179,12 +177,7 @@
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lblSession" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtSessionId" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="lblSport" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jComboBoxSport" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -230,17 +223,6 @@
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JLabel" name="lblSession">
-                      <Properties>
-                        <Property name="horizontalAlignment" type="int" value="2"/>
-                        <Property name="text" type="java.lang.String" value="Session ID :"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtSessionId">
-                      <Properties>
-                        <Property name="editable" type="boolean" value="false"/>
-                      </Properties>
-                    </Component>
                     <Component class="javax.swing.JLabel" name="lblSport">
                       <Properties>
                         <Property name="horizontalAlignment" type="int" value="2"/>
